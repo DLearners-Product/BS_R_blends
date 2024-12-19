@@ -101,8 +101,3 @@ public class identify_r : MonoBehaviour
               
     }*/
 }
-    
-
-
-             
-         
