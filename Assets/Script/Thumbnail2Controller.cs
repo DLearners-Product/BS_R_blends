@@ -5,16 +5,22 @@ using UnityEngine;
 public class Thumbnail2Controller : MonoBehaviour
 {
     public GameObject[] rainbowPoints;
+    public GameObject[] clouds;
     public float rotateSpeed = 0f;
     public float minAngle, maxAngle;
-    public  GameObject cardObj;
+    public GameObject cardObj;
+    public GameObject environmentObj;
+    public Transform envStopMovPoint;
+    public Transform[] cloudHorizontalStartPoints;
+    public Transform cloudHorizontalEndPoint;
+    public Transform cloudSpawnPoint;
     bool canLog = true;
+    int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 5;
 
     void Start()
     {
-        Debug.Log($"UP :: {Vector3.up}");
-        Debug.Log($"RIGHT :: {Vector3.right}");
-        Debug.Log($"Forward :: {Vector3.forward}");
+        InstantiateCloud();
+        Invoke(nameof(MoveEnvironment), 8f);
     }
 
     private void OnEnable() {
@@ -25,9 +31,30 @@ public class Thumbnail2Controller : MonoBehaviour
         ImageDragandDrop.onDrag -= OnCardDragged;
     }
 
+    void InstantiateCloud()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)], cloudSpawnPoint);
+            int spawnPoint = Random.Range(cloudSpawnIndexMin, cloudSpawnIndexMax);
+            // instantiatedCloud.transform.position = new Vector3(
+            //                                     cloudHorizontalStartPoints[spawnPoint].position.x,
+            //                                     cloudHorizontalStartPoints[spawnPoint].position.y,
+            //                                     cloudHorizontalStartPoints[spawnPoint].position.z);
+            instantiatedCloud.transform.position = cloudHorizontalStartPoints[spawnPoint].position;
+
+            instantiatedCloud.GetComponent<RunningClouds>().SetEndPoint(cloudHorizontalEndPoint);
+        }
+    }
+
     void Update()
     {
         
+    }
+
+    void MoveEnvironment()
+    {
+        Utilities.Instance.ANIM_Move(environmentObj.transform, envStopMovPoint.position);
     }
 
     void OnCardDragged(GameObject dragObj)
