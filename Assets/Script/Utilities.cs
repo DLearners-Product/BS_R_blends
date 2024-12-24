@@ -11,9 +11,9 @@ public class Utilities : MonoGenericSingleton<Utilities>
 
     public void ANIM_ShowNormal(Transform obj) => obj.DOScale(Vector3.one, 0.5f);
 
-    public void ScaleObject(Transform obj, float scaleSize=1.5f, float duration=0f)
+    public Tween ScaleObject(Transform obj, float scaleSize=1.5f, float duration=0f)
     {
-        obj.DOScale(Vector3.one * scaleSize, duration);
+        return obj.DOScale(Vector3.one * scaleSize, duration);
     }
 
     public void ANIM_ShowBounceNormal(Transform obj)
@@ -22,6 +22,15 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Append(obj.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.25f));
         sequence.Append(obj.DOScale(Vector3.one, 0.5f));
         sequence.Play();
+    }
+
+    public void ANIM_ScaleUpDelayScaleDown(Transform obj, float delayTime=0f)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.DOScale(Vector3.one * 1.25f, 0.5f));
+        seq.AppendInterval(delayTime);
+        seq.Append(obj.DOScale(Vector3.one, 0.5f));
+        seq.Play();
     }
 
 
@@ -120,6 +129,7 @@ public class Utilities : MonoGenericSingleton<Utilities>
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DORotate(new Vector3(0, 90, 0), 0.35f));
+        seq.AppendCallback(callback);
         seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.35f));
     }
 
