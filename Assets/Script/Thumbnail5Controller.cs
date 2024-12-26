@@ -47,9 +47,9 @@ public class Thumbnail5Controller : MonoBehaviour
     void ShowNextFrame()
     {
         nxtBtn.interactable = false;
-        Utilities.Instance.ANIM_RotateObj(blendWordTextPanel.transform, ChangeContent);
-        Utilities.Instance.ANIM_RotateObj(frame1.transform.parent);
-        Utilities.Instance.ANIM_RotateObj(frame2.transform.parent);
+        Utilities.Instance.ANIM_RotateObjWithCallback(blendWordTextPanel.transform, ChangeContent);
+        Utilities.Instance.ANIM_RotateObjWithCallback(frame1.transform.parent);
+        Utilities.Instance.ANIM_RotateObjWithCallback(frame2.transform.parent);
     }
 
     public void OnSpeakerClick(int frameIndex)

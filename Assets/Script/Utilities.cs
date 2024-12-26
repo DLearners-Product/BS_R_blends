@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-
+using System;
 
 public class Utilities : MonoGenericSingleton<Utilities>
 {
@@ -125,12 +125,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.onComplete += callback;
     }
 
-    public void ANIM_RotateObj(Transform obj, TweenCallback callback = null)
+    public void ANIM_RotateObjWithCallback(Transform obj, TweenCallback callback = null)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DORotate(new Vector3(0, 90, 0), 0.35f));
         seq.AppendCallback(callback);
         seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.35f));
+        seq.Play();
     }
 
     public void ANIM_ShrinkObject(Transform obj, float actionTime=0.5f)
@@ -147,7 +148,7 @@ public class Utilities : MonoGenericSingleton<Utilities>
         seq.Append(obj.DORotate(new Vector3(0, 0, -25), 0.05f));
         seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.05f));
     }
-    
+
     public void ApplyScaleEffectsToChildObjects(GameObject[] objs, TweenCallback<GameObject> callback=null)
     {
         Sequence seq = DOTween.Sequence();
