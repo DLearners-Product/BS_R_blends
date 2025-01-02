@@ -71,8 +71,7 @@ public class Utilities : MonoGenericSingleton<Utilities>
         Sequence sequence = DOTween.Sequence();
         sequence.Append(obj.DOMove(endPos, 0.5f));
         sequence.Join(obj.DOScale(Vector3.one * 1, 0.5f));
-        if(onCompleteCallBack != null)
-            sequence.onComplete += onCompleteCallBack;
+        sequence.onComplete += onCompleteCallBack;
         sequence.Play();
     }
 

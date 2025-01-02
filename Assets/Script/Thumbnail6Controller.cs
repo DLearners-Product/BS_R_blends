@@ -18,7 +18,7 @@ public class Thumbnail6Controller : MonoBehaviour
     GameObject _prevQuestion = null;
     GameObject _currentSelectedOption = null;
     int _currentIndex = 0;
-    bool B_canInteract = true;
+    bool B_canInteract = false;
 
     void Start()
     {
@@ -85,7 +85,8 @@ public class Thumbnail6Controller : MonoBehaviour
     public void OnBGPanelClicked()
     {
         if(!B_canInteract) return;
-        B_canInteract = false;
+
+        DisableClicking();
         var selectedObj = EventSystem.current.currentSelectedGameObject;
 
         if(selectedObj.CompareTag("answer"))
@@ -95,7 +96,10 @@ public class Thumbnail6Controller : MonoBehaviour
             if(_currentSelectedOption.name != selectedObj.name)
                 CloseOption(_currentSelectedOption.transform);
             else if(_currentSelectedOption.name == selectedObj.name)
+            {
+                EnableClicking();
                 return;
+            }
 
         OpenOption(selectedObj.transform);
         _currentSelectedOption = selectedObj;
@@ -106,6 +110,8 @@ public class Thumbnail6Controller : MonoBehaviour
             _currentSelectedOption = null;
             _currentIndex++;
             Invoke(nameof(SpawnQuestion), 3.5f);
+        }else{
+            EnableClicking();
         }
     }
 
@@ -125,7 +131,7 @@ public class Thumbnail6Controller : MonoBehaviour
         spawnedQuestion.GetComponent<RectTransform>().offsetMax = Vector2.zero;
         _currentQuestion = spawnedQuestion;
         Utilities.Instance.ANIM_Move(spawnedQuestion.transform, T_startPoint.position, 0f, MoveQuestion);
-        B_canInteract = false;
+        // DisableClicking();
     }
 
     void EnableClicking() {B_canInteract = true;}
@@ -133,7 +139,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void MoveQuestion()
     {
-        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position);
+        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, EnableClicking);
     }
 
     void MovePrevQuestion()
