@@ -13,7 +13,11 @@ public class Thumbnail6Controller : MonoBehaviour
     public GameObject G_optionsParent;
     public Transform T_startPoint, T_endPoint;
     public Sprite[] SPR_questionSprite;
+    public AudioClip[] AC_answerClip;
+    public AudioClip[] AC_optionClip;
     public GameObject G_questionImagePrefab;
+    public GameObject G_activityCompleted;
+    public AudioSource AS_emptyAudioSource;
     GameObject _currentQuestion = null;
     GameObject _prevQuestion = null;
     GameObject _currentSelectedOption = null;
@@ -29,7 +33,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     void OpenOptions()
@@ -84,14 +88,11 @@ public class Thumbnail6Controller : MonoBehaviour
 
     public void OnBGPanelClicked()
     {
-        if(!B_canInteract) return;
-
-        DisableClicking();
         var selectedObj = EventSystem.current.currentSelectedGameObject;
 
-        if(selectedObj.CompareTag("answer"))
-            return;
+        if(!B_canInteract || selectedObj.CompareTag("answer")) return;
 
+        DisableClicking();
         if(_currentSelectedOption != null)
             if(_currentSelectedOption.name != selectedObj.name)
                 CloseOption(_currentSelectedOption.transform);
@@ -103,16 +104,43 @@ public class Thumbnail6Controller : MonoBehaviour
 
         OpenOption(selectedObj.transform);
         _currentSelectedOption = selectedObj;
+        var selectedOptText = selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
 
-        if(EvaluateAnswer(selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text))
+        if(EvaluateAnswer(selectedOptText))
         {
             selectedObj.tag = "answer";
             _currentSelectedOption = null;
             _currentIndex++;
+            PlayOptionVO(selectedOptText);
             Invoke(nameof(SpawnQuestion), 3.5f);
         }else{
             EnableClicking();
         }
+    }
+
+    void PlayOptionVO(string selectedObjSTR)
+    {
+        int i = 0;
+        for (; i < AC_optionClip.Length; i++)
+        {
+            if(AC_optionClip[i].name.Contains(selectedObjSTR))
+            {
+                PlayAudio(AC_optionClip[i]);
+                break;
+            }
+        }
+        Debug.Log($"i :: {i}");
+        Invoke(nameof(PlayQuestionVO), AC_optionClip[i].length);
+    }
+
+    void PlayQuestionVO()
+    {
+        PlayAudio(AC_answerClip[_currentIndex - 1]);
+    }
+
+    void PlayAudio(AudioClip _audioClip)
+    {
+        AS_emptyAudioSource.PlayOneShot(_audioClip);
     }
 
     bool EvaluateAnswer(string clickedOptString)
@@ -122,6 +150,11 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void SpawnQuestion()
     {
+        if(_currentIndex == SPR_questionSprite.Length){
+            G_activityCompleted.SetActive(true);
+            return;
+        }
+
         _prevQuestion = _currentQuestion;
         MovePrevQuestion();
         var spawnedQuestion = Instantiate(G_questionImagePrefab, IMG_questionImagePanel.transform);
