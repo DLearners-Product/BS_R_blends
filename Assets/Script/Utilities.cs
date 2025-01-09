@@ -79,7 +79,7 @@ public class Utilities : MonoGenericSingleton<Utilities>
     {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(obj.DOMove(endPos, 0.5f));
-        sequence.Join(obj.DOScale(Vector3.one, 0.5f));
+        sequence.Join(obj.DOScale(Vector3.zero, 0.5f));
         sequence.onComplete += onCompleteCallBack;
         sequence.Play();
     }

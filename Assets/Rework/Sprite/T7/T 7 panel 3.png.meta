@@ -1,22 +1,34 @@
 fileFormatVersion: 2
-guid: 9076a1f678a989947963b8bb572abdd2
+guid: f595a6019356d3c4c85084a0b763d63a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4154164062543572161
-    second: T 7 panel 2_0
+      213: -1794925247406450307
+    second: T 7 panel 3_0
   - first:
-      213: -5835179412135535220
-    second: T 7 panel 2_1
+      213: -3974022428306611755
+    second: T 7 panel 3_1
   - first:
-      213: -9022269838488454645
-    second: T 7 panel 2_2
+      213: 6894386803199462040
+    second: T 7 panel 3_2
   - first:
-      213: -6384779222063676117
-    second: T 7 panel 2_3
+      213: -3334134741291559901
+    second: T 7 panel 3_3
   - first:
-      213: 3383347994148407816
-    second: T 7 panel 2_4
+      213: -6188023157163987460
+    second: T 7 panel 3_0
+  - first:
+      213: -649177721232990895
+    second: T 7 panel 3_1
+  - first:
+      213: 3456899417381518888
+    second: T 7 panel 3_2
+  - first:
+      213: 6709886337320526173
+    second: T 7 panel 3_3
+  - first:
+      213: -7646121682510703641
+    second: T 7 panel 3_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -114,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T 7 panel 2_0
+      name: T 7 panel 3_0
       rect:
         serializedVersion: 2
         x: 59
@@ -128,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cc6a96843e86a930800000000000000
-      internalID: 4154164062543572161
+      spriteID: cfd695f59b9bf1aa0800000000000000
+      internalID: -6188023157163987460
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T 7 panel 2_1
+      name: T 7 panel 3_1
       rect:
         serializedVersion: 2
         x: 1051
@@ -149,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8d1df2ad37450fa0800000000000000
-      internalID: -5835179412135535220
+      spriteID: 15d5fc15d48adf6f0800000000000000
+      internalID: -649177721232990895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T 7 panel 2_2
+      name: T 7 panel 3_2
       rect:
         serializedVersion: 2
-        x: 584
+        x: 1084
         y: 1057
-        width: 72
-        height: 119
+        width: 76
+        height: 335
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,35 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0abc2942657ac280800000000000000
-      internalID: -9022269838488454645
+      spriteID: 82eb74564bf59ff20800000000000000
+      internalID: 3456899417381518888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T 7 panel 2_3
-      rect:
-        serializedVersion: 2
-        x: 1240
-        y: 1060
-        width: 72
-        height: 104
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2589932025b467a0800000000000000
-      internalID: -6384779222063676117
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T 7 panel 2_4
+      name: T 7 panel 3_3
       rect:
         serializedVersion: 2
         x: 135
@@ -212,8 +203,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80a0fbe231114fe20800000000000000
-      internalID: 3383347994148407816
+      spriteID: d51ac33c21e4e1d50800000000000000
+      internalID: 6709886337320526173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T 7 panel 3_4
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 419
+        width: 289
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3998437d483e590800000000000000
+      internalID: -7646121682510703641
       vertices: []
       indices: 
       edges: []
