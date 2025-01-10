@@ -42,6 +42,7 @@ public class Thumbnail7Controller : MonoBehaviour
     void SpawnObject()
     {
         if(currentIndex == activityTexts.Length) {activityCompletedScreen.SetActive(true); return;}
+        UpdateCounter();
 
         prevSpawnedObject = _spawnedObject;
         if(prevSpawnedObject != null)
@@ -97,6 +98,11 @@ public class Thumbnail7Controller : MonoBehaviour
                 SpawnObject();
             }
         }
+    }
+
+    void UpdateCounter()
+    {
+        counterObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{currentIndex} / {answerTexts.Length}";
     }
 
 }

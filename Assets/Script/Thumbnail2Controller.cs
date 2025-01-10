@@ -14,7 +14,6 @@ public class Thumbnail2Controller : MonoBehaviour
     public Transform[] cloudHorizontalStartPoints;
     public Transform cloudHorizontalEndPoint;
     public Transform cloudSpawnPoint;
-    bool canLog = true;
     int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 5;
 
     void Start()
