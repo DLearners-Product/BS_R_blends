@@ -133,9 +133,10 @@ public class Utilities : MonoGenericSingleton<Utilities>
         seq.Play();
     }
 
-    public void ANIM_ShrinkObject(Transform obj, float actionTime=0.5f)
+    public void ANIM_ShrinkObject(Transform obj, float actionTime=0.5f, TweenCallback callback = null)
     {
-        obj.DOScale(Vector3.zero, actionTime);
+        var tween = obj.DOScale(Vector3.zero, actionTime);
+        tween.onComplete += callback;
     }
 
     public void ANIM_ShakeObj(Transform obj)
