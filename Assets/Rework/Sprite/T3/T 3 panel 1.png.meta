@@ -50,6 +50,30 @@ TextureImporter:
   - first:
       213: -4446124486791324327
     second: T 3 panel 1_15
+  - first:
+      213: 2820281600444810968
+    second: T 3 panel 1_1
+  - first:
+      213: 2938368153421378651
+    second: T 3 panel 1_2
+  - first:
+      213: -5940767793341380727
+    second: T 3 panel 1_4
+  - first:
+      213: -1897248770450853709
+    second: T 3 panel 1_13
+  - first:
+      213: 7846687285770766769
+    second: T 3 panel 1_14
+  - first:
+      213: -1589937614317864011
+    second: T 3 panel 1_15
+  - first:
+      213: 3781911281667064614
+    second: T 3 panel 1_16
+  - first:
+      213: -2318707951088235407
+    second: T 3 panel 1_17
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -155,7 +179,7 @@ TextureImporter:
         width: 471
         height: 232
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -176,7 +200,7 @@ TextureImporter:
         width: 486
         height: 146
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -197,7 +221,7 @@ TextureImporter:
         width: 394
         height: 107
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,7 +242,7 @@ TextureImporter:
         width: 489
         height: 119
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -239,7 +263,7 @@ TextureImporter:
         width: 284
         height: 159
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -260,7 +284,7 @@ TextureImporter:
         width: 1948
         height: 703
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -268,6 +292,48 @@ TextureImporter:
       bones: []
       spriteID: 95d13a9f5513c42c0800000000000000
       internalID: -4446124486791324327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T 3 panel 1_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 3
+        width: 444
+        height: 542
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b990eb70b0d19efb0800000000000000
+      internalID: -4618128009679992421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T 3 panel 1_3
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 3
+        width: 444
+        height: 542
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b76997b7cb7c22fd0800000000000000
+      internalID: -2368110841704114565
       vertices: []
       indices: 
       edges: []
