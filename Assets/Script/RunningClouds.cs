@@ -6,10 +6,11 @@ public class RunningClouds : MonoBehaviour
 {
     public Transform spawnPoint, _endPoint;
     Vector3 endPosition;
+    float moveTime = 0;
 
     void Start()
     {
-        Invoke(nameof(MoveCloud), Random.Range(1f, 5f));
+        Invoke(nameof(MoveCloud), moveTime);
     }
 
     void MoveCloud()
@@ -18,8 +19,9 @@ public class RunningClouds : MonoBehaviour
         Utilities.Instance.ANIM_MoveLocal(transform, endPosition, 20f, () => { Destroy(gameObject); });
     }
 
-    public void SetEndPoint(Transform endPoint)
+    public void SetEndPoint(Transform endPoint, float _moveTime = -1f)
     {
+        moveTime = (_moveTime == -1) ? Random.Range(1f, 5f) : _moveTime;
         _endPoint = endPoint;
     }
 }

@@ -1,5 +1,4 @@
-﻿// using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,20 +9,38 @@ public class Thumbnail2Controller : MonoBehaviour
     public GameObject[] clouds;
     public float rotateSpeed = 0f;
     public float minAngle, maxAngle;
-    public GameObject cardObj;
     public GameObject environmentObj;
     public Transform envStopMovPoint;
     public Transform[] cloudHorizontalStartPoints;
+    public List<Transform> spawnPoints;
     public Transform cloudHorizontalEndPoint;
     public Transform cloudSpawnPoint;
     public GameObject rainbowObject;
     int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 10;
     int counter = 0;
+    int spawnPointIndex = 0;
+    float mvoeStartTime = -1f;
+
+    [Header("Card Settings")]
+    public GameObject cardParent;
+    public GameObject cardPrefab;
+    public Transform cardSpawnPoint1, cardSpawnPoint2;
+    public Transform cardSpawn1StartPosition, cardSpawn2StartPosition;
 
     void Start()
     {
-        InvokeRepeating(nameof(InstantiateCloud), 2f, 2f);
-        Invoke(nameof(MoveEnvironment), 8f);
+
+        int spawnPointCount = spawnPoints.Count;
+
+        mvoeStartTime = 0f;
+        for (int i = 0; i < spawnPointCount; i++)
+        {
+            InstantiateCloud();
+        }
+
+        mvoeStartTime = -1f;
+        InvokeRepeating(nameof(InstantiateCloud), 0f, 2f);
+        Invoke(nameof(MoveEnvironment), 2f);
         // InvokeRepeating(nameof(MoveEnvironment), 2f, 2f);
         ShrinkAlphabetObjects();
     }
@@ -38,20 +55,15 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void InstantiateCloud()
     {
-        // for (int i = 0; i < 5; i++)
-        // {
-            var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)].transform, cloudSpawnPoint);
-            int spawnPoint = Random.Range(cloudSpawnIndexMin, cloudSpawnIndexMax);
-            // var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)], cloudHorizontalStartPoints[spawnPoint].position, Quaternion.identity);
-            // instantiatedCloud.transform.position = new Vector3(
-            //                                     cloudHorizontalStartPoints[spawnPoint].position.x,
-            //                                     cloudHorizontalStartPoints[spawnPoint].position.y,
-            //                                     cloudHorizontalStartPoints[spawnPoint].position.z);
-            instantiatedCloud.transform.position = cloudHorizontalStartPoints[spawnPoint].position;
-            instantiatedCloud.transform.SetParent(cloudSpawnPoint);
+        var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)].transform, cloudSpawnPoint);
+        int spawnPoint = Random.Range(cloudSpawnIndexMin, cloudSpawnIndexMax);
 
-            instantiatedCloud.GetComponent<RunningClouds>().SetEndPoint(cloudHorizontalEndPoint);
-        // }
+        Transform spawnPosition = (spawnPoints.Count != spawnPointIndex) ? spawnPoints[spawnPointIndex++] : cloudHorizontalStartPoints[spawnPoint];
+
+        instantiatedCloud.transform.position = spawnPosition.position;
+        instantiatedCloud.transform.SetParent(cloudSpawnPoint);
+
+        instantiatedCloud.GetComponent<RunningClouds>().SetEndPoint(cloudHorizontalEndPoint, mvoeStartTime);
     }
 
     void ShrinkAlphabetObjects()
@@ -60,15 +72,6 @@ public class Thumbnail2Controller : MonoBehaviour
         {
             Utilities.Instance.ANIM_ShrinkObject(item.transform, 0f);
         }
-    }
-
-    void PopAlphabetObjects()
-    {
-        // var alphabetIndex = counter;
-        if(counter < (rainbowPoints.Length - 1))
-            Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter++].transform, 0.15f, 0.15f, PopAlphabetObjects);
-        else
-            Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter++].transform, 0.15f, 0.15f);
     }
 
     void MoveEnvironment()
@@ -83,23 +86,55 @@ public class Thumbnail2Controller : MonoBehaviour
         rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, 0);
         // rainbowObject.GetComponent<Image>().enabled = true;
         rainbowObject.SetActive(true);
-        StartCoroutine(MakeRainBow());
+        StartCoroutine(MakeRainBowVisible());
     }
 
-    IEnumerator MakeRainBow()
+    IEnumerator MakeRainBowVisible()
     {
         var rainbowColor = rainbowObject.GetComponent<Image>().color;
         float alphaValue = 0;
         while (true)
         {
             if(alphaValue >= 1f) break;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.15f);
             alphaValue += 0.05f;
-            Debug.Log($"Clamped Value :: {Mathf.Clamp01(alphaValue)}");
             rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, Mathf.Clamp01(alphaValue));
         }
         rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
         PopAlphabetObjects();
+    }
+
+    void PopAlphabetObjects()
+    {
+        // var alphabetIndex = counter;
+        if(counter < (rainbowPoints.Length - 1))
+            Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter++].transform, 0.15f, 0.15f, PopAlphabetObjects);
+        else
+            Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter++].transform, 0.15f, 0.15f, EnableCard);
+    }
+
+    void EnableCard()
+    {
+        cardParent.SetActive(true);
+        Utilities.Instance.ANIM_ShowBounceNormal(cardParent.transform.GetChild(0), callback: () => { SpawnCard(); });
+    }
+
+    void SpawnCard(int cardSpawnIndex = 0)
+    {
+        var _cardSpawnIndex = cardSpawnIndex;
+        var spawnedCard = Instantiate(cardPrefab, cardSpawnPoint1);
+        // spawnedCard.transform. = new Vector3(
+        //                                     cardSpawn1StartPosition.position.x + (cardSpawnIndex * 130), 
+        //                                     cardSpawn1StartPosition.position.y,
+        //                                     cardSpawn1StartPosition.position.z);
+        spawnedCard.transform.position = cardParent.transform.GetChild(0).position;
+        Vector3 endMovePosition = new Vector3(
+                                            cardSpawn1StartPosition.position.x + (cardSpawnIndex * 1.2f), 
+                                            cardSpawn1StartPosition.position.y,
+                                            cardSpawn1StartPosition.position.z);
+        Debug.Log($"Vector Position :: {endMovePosition} --> Index :: {cardSpawnIndex}");
+        if(_cardSpawnIndex != 14)
+            Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, callBack: () => { SpawnCard(++_cardSpawnIndex); });
     }
 
     void OnCardDragged(GameObject dragObj)
