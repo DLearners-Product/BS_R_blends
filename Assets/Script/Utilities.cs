@@ -16,11 +16,12 @@ public class Utilities : MonoGenericSingleton<Utilities>
         return obj.DOScale(Vector3.one * scaleSize, duration);
     }
 
-    public void ANIM_ShowBounceNormal(Transform obj)
+    public void ANIM_ShowBounceNormal(Transform obj, float enlargeScaleUpTime = 0.25f, float shrinkUpTime = 0.5f, TweenCallback callback=null)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(obj.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.25f));
-        sequence.Append(obj.DOScale(Vector3.one, 0.5f));
+        sequence.Append(obj.DOScale(new Vector3(1.2f, 1.2f, 1.2f), enlargeScaleUpTime));
+        sequence.Append(obj.DOScale(Vector3.one, shrinkUpTime));
+        sequence.onComplete += callback;
         sequence.Play();
     }
 
@@ -62,6 +63,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
     public void ANIM_Move(Transform obj, Vector3 endPos, float movementSpeed = 0.5f, TweenCallback callBack = null)
     {
         var _tween = obj.DOMove(endPos, movementSpeed);
+        _tween.onComplete += callBack;
+        _tween.Play();
+    }
+
+    public void ANIM_MoveLocal(Transform obj, Vector3 endPos, float movementSpeed = 0.5f, TweenCallback callBack = null)
+    {
+        var _tween = obj.DOLocalMove(endPos, movementSpeed);
         _tween.onComplete += callBack;
         _tween.Play();
     }

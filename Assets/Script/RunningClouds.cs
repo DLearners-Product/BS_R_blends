@@ -5,15 +5,17 @@ using UnityEngine;
 public class RunningClouds : MonoBehaviour
 {
     public Transform spawnPoint, _endPoint;
+    Vector3 endPosition;
 
     void Start()
     {
-        Invoke(nameof(MoveCloud), Random.Range(1f, 10f));
+        Invoke(nameof(MoveCloud), Random.Range(1f, 5f));
     }
 
     void MoveCloud()
     {
-        Utilities.Instance.ANIM_Move(transform, new Vector3(_endPoint.position.x, transform.position.y, transform.position.z), 20f);
+        endPosition = new Vector3(_endPoint.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+        Utilities.Instance.ANIM_MoveLocal(transform, endPosition, 20f, () => { Destroy(gameObject); });
     }
 
     public void SetEndPoint(Transform endPoint)

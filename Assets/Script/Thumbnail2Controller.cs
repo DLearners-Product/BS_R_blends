@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿// using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Thumbnail2Controller : MonoBehaviour
 {
@@ -14,12 +16,16 @@ public class Thumbnail2Controller : MonoBehaviour
     public Transform[] cloudHorizontalStartPoints;
     public Transform cloudHorizontalEndPoint;
     public Transform cloudSpawnPoint;
-    int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 5;
+    public GameObject rainbowObject;
+    int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 10;
+    int counter = 0;
 
     void Start()
     {
-        InstantiateCloud();
+        InvokeRepeating(nameof(InstantiateCloud), 2f, 2f);
         Invoke(nameof(MoveEnvironment), 8f);
+        // InvokeRepeating(nameof(MoveEnvironment), 2f, 2f);
+        ShrinkAlphabetObjects();
     }
 
     private void OnEnable() {
@@ -32,28 +38,68 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void InstantiateCloud()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)], cloudSpawnPoint);
+        // for (int i = 0; i < 5; i++)
+        // {
+            var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)].transform, cloudSpawnPoint);
             int spawnPoint = Random.Range(cloudSpawnIndexMin, cloudSpawnIndexMax);
+            // var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)], cloudHorizontalStartPoints[spawnPoint].position, Quaternion.identity);
             // instantiatedCloud.transform.position = new Vector3(
             //                                     cloudHorizontalStartPoints[spawnPoint].position.x,
             //                                     cloudHorizontalStartPoints[spawnPoint].position.y,
             //                                     cloudHorizontalStartPoints[spawnPoint].position.z);
             instantiatedCloud.transform.position = cloudHorizontalStartPoints[spawnPoint].position;
+            instantiatedCloud.transform.SetParent(cloudSpawnPoint);
 
             instantiatedCloud.GetComponent<RunningClouds>().SetEndPoint(cloudHorizontalEndPoint);
+        // }
+    }
+
+    void ShrinkAlphabetObjects()
+    {
+        foreach (var item in rainbowPoints)
+        {
+            Utilities.Instance.ANIM_ShrinkObject(item.transform, 0f);
         }
     }
 
-    void Update()
+    void PopAlphabetObjects()
     {
-        
+        // var alphabetIndex = counter;
+        if(counter < (rainbowPoints.Length - 1))
+            Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter++].transform, 0.15f, 0.15f, PopAlphabetObjects);
+        else
+            Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter++].transform, 0.15f, 0.15f);
     }
 
     void MoveEnvironment()
     {
-        Utilities.Instance.ANIM_Move(environmentObj.transform, envStopMovPoint.position);
+        Utilities.Instance.ANIM_Move(environmentObj.transform, envStopMovPoint.position, 4f, EnableRainBow);
+    }
+
+    void EnableRainBow()
+    {
+        // rainbowObject.GetComponent<Image>().enabled = false;
+        var rainbowColor = rainbowObject.GetComponent<Image>().color;
+        rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, 0);
+        // rainbowObject.GetComponent<Image>().enabled = true;
+        rainbowObject.SetActive(true);
+        StartCoroutine(MakeRainBow());
+    }
+
+    IEnumerator MakeRainBow()
+    {
+        var rainbowColor = rainbowObject.GetComponent<Image>().color;
+        float alphaValue = 0;
+        while (true)
+        {
+            if(alphaValue >= 1f) break;
+            yield return new WaitForSeconds(0.5f);
+            alphaValue += 0.05f;
+            Debug.Log($"Clamped Value :: {Mathf.Clamp01(alphaValue)}");
+            rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, Mathf.Clamp01(alphaValue));
+        }
+        rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
+        PopAlphabetObjects();
     }
 
     void OnCardDragged(GameObject dragObj)
