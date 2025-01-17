@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1951822455589646751}
   - component: {fileID: 1951822455589646817}
   - component: {fileID: 1951822455589646750}
+  - component: {fileID: -227781783357021119}
+  - component: {fileID: -4408643299243562259}
   m_Layer: 5
   m_Name: SpawnCard
   m_TagString: Untagged
@@ -76,6 +78,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &-227781783357021119
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951822455589646748}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &-4408643299243562259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951822455589646748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e297f6274c141f7bdafa6557c385b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 0}
+  currentPos: {x: 0, y: 0, z: 0}
+  min: {x: 0, y: 0}
+  max: {x: 0, y: 0}
+  originalParent: {fileID: 0}
+  resetPositionOnDrop: 0
 --- !u!1 &2139025314343347237
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +183,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 0.7647059, g: 0.39607844, b: 0.38431373, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

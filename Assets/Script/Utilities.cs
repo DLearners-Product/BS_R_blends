@@ -9,11 +9,13 @@ using System;
 public class Utilities : MonoGenericSingleton<Utilities>
 {
 
-    public void ANIM_ShowNormal(Transform obj) => obj.DOScale(Vector3.one, 0.5f);
+    public void ANIM_ShowNormal(Transform obj, float duration=0.5f) => obj.DOScale(Vector3.one, duration);
 
-    public Tween ScaleObject(Transform obj, float scaleSize=1.5f, float duration=0f)
+    public void ScaleObject(Transform obj, float scaleSize=1.5f, float duration=0f, TweenCallback callback=null)
     {
-        return obj.DOScale(Vector3.one * scaleSize, duration);
+        Tween _tween = obj.DOScale(Vector3.one * scaleSize, duration);
+        _tween.onComplete += callback;
+        _tween.Play();
     }
 
     public void ANIM_ShowBounceNormal(Transform obj, float enlargeScaleUpTime = 0.25f, float shrinkUpTime = 0.5f, TweenCallback callback=null)
@@ -52,6 +54,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Append(obj.DOScale(Vector3.one, 1f));
         sequence.Join(obj.GetComponent<Image>().DOFade(0, 1f));
         sequence.Play();
+    }
+
+    public void ANIM_ImageFill(Image imageObj, float duration=0.5f, TweenCallback callback = null)
+    {
+        Tween _tween = imageObj.DOFillAmount(1, duration);
+        _tween.onComplete += callback;
+        _tween.Play();
     }
 
     public void ANIM_SpeakerReset(Transform obj)
