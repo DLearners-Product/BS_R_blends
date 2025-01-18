@@ -63,6 +63,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.Play();
     }
 
+    public void ANIM_ImageFade(Image imageObj, float fadeTo = 1f, float duration = 0.5f, TweenCallback callback = null)
+    {
+        Tween _tween = imageObj.DOFade(fadeTo, duration);
+        _tween.onComplete += callback;
+        _tween.Play();
+    }
+
     public void ANIM_SpeakerReset(Transform obj)
     {
         // obj.DOScale(Vector3.zero, 0);
@@ -127,6 +134,15 @@ public class Utilities : MonoGenericSingleton<Utilities>
             yield return new WaitForSeconds(0.1f);
         }
         obj.GetComponent<Button>().interactable = true;
+    }
+
+    public void ANIM_RotateAndReveal(Transform rotateObj, TweenCallback callback = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(rotateObj.DORotate(Vector3.up * 90, 0.5f));
+        seq.AppendCallback(callback);
+        seq.Append(rotateObj.DORotate(Vector3.zero, 0.5f));
+        seq.Play();
     }
 
     public void ANIM_RotateHide(Transform obj, TweenCallback callback = null)

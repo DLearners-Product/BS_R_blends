@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VSCodeEditor;
 
 public class Thumbnail2Controller : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Thumbnail2Controller : MonoBehaviour
     public GameObject rainbowObject;
     public Material normalMaterial,
                     glowMaterial;
+    public Color fontChangeColor;
     int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 10;
     int counter = 0;
     int spawnPointIndex = 0;
@@ -29,11 +31,13 @@ public class Thumbnail2Controller : MonoBehaviour
     public GameObject cardPrefab;
     public Transform cardSpawnPoint1, cardSpawnPoint2;
     public Transform cardSpawn1StartPosition, cardSpawn2StartPosition;
-    public Sprite rotatedCardSprite,
+    public Sprite rearCardSprite,
                     frontCardSprite;
+    public GameObject cardBG;
     public Sprite[] _vowelSprites;
-    char[] vowelsChar = new char[]{'a', 'e', 'i', 'o', 'u'};
+    List<string> vowelsChar = new List<string>(){"a", "e", "i", "o", "u"};
     int alphabetASCIIVal = 65;
+    Transform _mainCarObject = null;
 
     void Start()
     {
@@ -49,6 +53,7 @@ public class Thumbnail2Controller : MonoBehaviour
         mvoeStartTime = -1f;
         InvokeRepeating(nameof(InstantiateCloud), 0f, 2f);
         Invoke(nameof(MoveEnvironment), 2f);
+        cardBG.GetComponent<Image>().color = new Color(Color.white.r, Color.white.g, Color.white.b, 0);
         // InvokeRepeating(nameof(MoveEnvironment), 2f, 2f);
         ShrinkAlphabetObjects();
     }
@@ -188,7 +193,7 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void ChangeAssets(Transform changeObject)
     {
-        changeObject.GetComponent<Image>().sprite = rotatedCardSprite;
+        changeObject.GetComponent<Image>().sprite = frontCardSprite;
         changeObject.GetChild(0).gameObject.SetActive(true);
     }
 
@@ -227,8 +232,73 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void OnCardDrop(GameObject droppedObj)
     {
-        Debug.Log($"Dropped Object : {droppedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}");
+        var selectedLetter = droppedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        Debug.Log($"Dropped Object : {selectedLetter}");
         ResetRainbowLetterMaterial();
         Destroy(droppedObj);
+        foreach (var alphabet in rainbowPoints)
+        {
+            if(alphabet.GetComponent<TextMeshProUGUI>().text.ToLower().Equals(selectedLetter.ToLower()))
+            {
+                if(vowelsChar.Contains(selectedLetter.ToLower()))
+                {
+                    var displaySprite = GetVowelSprite(selectedLetter.ToLower());
+                    Debug.Log($"Sprite name :: {displaySprite}");
+                    DisplayPicInMainCard(displaySprite);
+                }
+                Debug.Log($"Chamge color to {alphabet.GetComponent<TextMeshProUGUI>().text}");
+                alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
+            }
+        }
+    }
+
+    public void OnCancelBTNClick()
+    {
+        Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0f, 1f);
+        Utilities.Instance.ScaleObject(_mainCarObject.transform, 1f, 5f, () => { cardBG.SetActive(false); });
+        Utilities.Instance.ANIM_RotateAndReveal(_mainCarObject.transform, () => { ChangeSprite(_mainCarObject.GetComponent<Image>(), rearCardSprite); DisplayRearCard(_mainCarObject); });
+    }
+
+    void DisplayPicInMainCard(Sprite displaySprite)
+    {
+        _mainCarObject = cardParent.transform.GetChild(0);
+        _mainCarObject.SetSiblingIndex(3);
+        cardBG.SetActive(true);
+        Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0.5f, 1f);
+        Utilities.Instance.ScaleObject(_mainCarObject.transform, 2f, 5f);
+        Utilities.Instance.ANIM_RotateAndReveal(_mainCarObject.transform, () => { ChangeSprite(_mainCarObject.GetComponent<Image>(), frontCardSprite); AssignImage(_mainCarObject.gameObject, displaySprite); });
+    }
+
+    void ChangeSprite(Image obj, Sprite spriteToChange)
+    {
+        obj.GetComponent<Image>().sprite = spriteToChange;
+    }
+
+    void DisplayRearCard(Transform mainCardObj)
+    {
+        mainCardObj.transform.GetChild(0).gameObject.SetActive(false);
+        mainCardObj.transform.GetChild(1).gameObject.SetActive(false);
+        mainCardObj.transform.GetChild(2).gameObject.SetActive(false);
+    }
+
+    void AssignImage(GameObject mainCardObj, Sprite displaySprite)
+    {
+        mainCardObj.transform.GetChild(0).gameObject.SetActive(true);
+        mainCardObj.transform.GetChild(1).gameObject.SetActive(true);
+        mainCardObj.transform.GetChild(2).gameObject.SetActive(true);
+        mainCardObj.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = displaySprite;
+    }
+
+    Sprite GetVowelSprite(string selectedSTR)
+    {
+        foreach (var _sprite in _vowelSprites)
+        {
+            Debug.Log($"{_sprite.name.Substring(0, 1)} -- {selectedSTR}");
+            if(_sprite.name.Substring(0, 1).ToLower().Equals(selectedSTR.ToLower()))
+            {
+                return _sprite;
+            }
+        }
+        return null;
     }
 }
