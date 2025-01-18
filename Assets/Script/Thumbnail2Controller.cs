@@ -35,9 +35,9 @@ public class Thumbnail2Controller : MonoBehaviour
                     frontCardSprite;
     public GameObject cardBG;
     public Sprite[] _vowelSprites;
+    public Transform mainCardObject;
     List<string> vowelsChar = new List<string>(){"a", "e", "i", "o", "u"};
     int alphabetASCIIVal = 65;
-    Transform _mainCarObject = null;
 
     void Start()
     {
@@ -221,13 +221,6 @@ public class Thumbnail2Controller : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
 
         dragObj.transform.rotation = Quaternion.Slerp(dragObj.transform.rotation, targetRotation, rotateSpeed);
-
-        // float angle = Mathf.Atan2(rainbowPoints[nearObjectIndex].transform.position.y - dragObj.transform.position.y, rainbowPoints[nearObjectIndex].transform.position.x - dragObj.transform.position.x ) * Mathf.Rad2Deg;
-        // Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        // dragObj.transform.rotation = Quaternion.RotateTowards(dragObj.transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-
-        // var cardfaceDirection = Vector3.RotateTowards(dragObj.transform.position, rainbowPoints[nearObjectIndex].transform.position, rotateSpeed, 0.0f);
-        // dragObj.transform.rotation = Quaternion.LookRotation(cardfaceDirection);
     }
 
     void OnCardDrop(GameObject droppedObj)
@@ -243,7 +236,6 @@ public class Thumbnail2Controller : MonoBehaviour
                 if(vowelsChar.Contains(selectedLetter.ToLower()))
                 {
                     var displaySprite = GetVowelSprite(selectedLetter.ToLower());
-                    Debug.Log($"Sprite name :: {displaySprite}");
                     DisplayPicInMainCard(displaySprite);
                 }
                 Debug.Log($"Chamge color to {alphabet.GetComponent<TextMeshProUGUI>().text}");
@@ -255,18 +247,22 @@ public class Thumbnail2Controller : MonoBehaviour
     public void OnCancelBTNClick()
     {
         Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0f, 1f);
-        Utilities.Instance.ScaleObject(_mainCarObject.transform, 1f, 5f, () => { cardBG.SetActive(false); });
-        Utilities.Instance.ANIM_RotateAndReveal(_mainCarObject.transform, () => { ChangeSprite(_mainCarObject.GetComponent<Image>(), rearCardSprite); DisplayRearCard(_mainCarObject); });
+        Utilities.Instance.ScaleObject(mainCardObject.transform, 1f, 5f, () => { cardBG.SetActive(false); });
+        Utilities.Instance.ANIM_RotateAndReveal(mainCardObject.transform, () => { ChangeSprite(mainCardObject.GetComponent<Image>(), rearCardSprite); DisplayRearCard(mainCardObject); });
     }
 
     void DisplayPicInMainCard(Sprite displaySprite)
     {
-        _mainCarObject = cardParent.transform.GetChild(0);
-        _mainCarObject.SetSiblingIndex(3);
+        mainCardObject.SetSiblingIndex(3);
         cardBG.SetActive(true);
+
         Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0.5f, 1f);
-        Utilities.Instance.ScaleObject(_mainCarObject.transform, 2f, 5f);
-        Utilities.Instance.ANIM_RotateAndReveal(_mainCarObject.transform, () => { ChangeSprite(_mainCarObject.GetComponent<Image>(), frontCardSprite); AssignImage(_mainCarObject.gameObject, displaySprite); });
+        Utilities.Instance.ScaleObject(mainCardObject.transform, 2f, 3f);
+        Utilities.Instance.ANIM_RotateAndReveal(mainCardObject.transform, 
+                            () => {
+                                ChangeSprite(mainCardObject.GetChild(1).GetComponent<Image>(), frontCardSprite); 
+                                AssignImage(mainCardObject, displaySprite); 
+                            });
     }
 
     void ChangeSprite(Image obj, Sprite spriteToChange)
@@ -277,23 +273,32 @@ public class Thumbnail2Controller : MonoBehaviour
     void DisplayRearCard(Transform mainCardObj)
     {
         mainCardObj.transform.GetChild(0).gameObject.SetActive(false);
-        mainCardObj.transform.GetChild(1).gameObject.SetActive(false);
         mainCardObj.transform.GetChild(2).gameObject.SetActive(false);
+        mainCardObj.transform.GetChild(3).gameObject.SetActive(false);
+        mainCardObj.transform.GetChild(4).gameObject.SetActive(false);
     }
 
-    void AssignImage(GameObject mainCardObj, Sprite displaySprite)
+    void AssignImage(Transform mainCardObj, Sprite displaySprite)
     {
-        mainCardObj.transform.GetChild(0).gameObject.SetActive(true);
-        mainCardObj.transform.GetChild(1).gameObject.SetActive(true);
+        // mainCardObj.transform.GetChild(0).gameObject.SetActive(true);
+        // mainCardObj.transform.GetChild(1).gameObject.SetActive(true);
         mainCardObj.transform.GetChild(2).gameObject.SetActive(true);
-        mainCardObj.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = displaySprite;
+        // mainCardObj.transform.GetChild(3).gameObject.SetActive(true);
+
+        mainCardObj.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = displaySprite;
+        mainCardObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = displaySprite.name;
+    }
+
+    void DisplayInteractiveBtns()
+    {
+        Utilities.Instance.ANIM_ShrinkObject(mainCardObject.transform.GetChild(0), 0f);
+        mainCardObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     Sprite GetVowelSprite(string selectedSTR)
     {
         foreach (var _sprite in _vowelSprites)
         {
-            Debug.Log($"{_sprite.name.Substring(0, 1)} -- {selectedSTR}");
             if(_sprite.name.Substring(0, 1).ToLower().Equals(selectedSTR.ToLower()))
             {
                 return _sprite;
