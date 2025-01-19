@@ -246,19 +246,33 @@ public class Thumbnail2Controller : MonoBehaviour
 
     public void OnCancelBTNClick()
     {
+        Utilities.Instance.ANIM_HideBounce(mainCardObject.GetChild(3));
+        Utilities.Instance.ANIM_MoveWithScaleDown(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.up * 1.5f), ReturnToOriginalState);
+    }
+
+    void ReturnToOriginalState()
+    {
+        mainCardObject.GetChild(0).gameObject.SetActive(false);
+        mainCardObject.GetChild(3).gameObject.SetActive(false);
         Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0f, 1f);
-        Utilities.Instance.ScaleObject(mainCardObject.transform, 1f, 5f, () => { cardBG.SetActive(false); });
-        Utilities.Instance.ANIM_RotateAndReveal(mainCardObject.transform, () => { ChangeSprite(mainCardObject.GetComponent<Image>(), rearCardSprite); DisplayRearCard(mainCardObject); });
+
+        Utilities.Instance.ScaleObject(mainCardObject, 1f, 3f, () => { cardBG.SetActive(false); mainCardObject.SetAsFirstSibling(); });
+        Utilities.Instance.ANIM_RotateAndReveal(mainCardObject, 
+                            () => { 
+                                ChangeSprite(mainCardObject.GetChild(1).GetComponent<Image>(), rearCardSprite); 
+                                DisplayRearCard(mainCardObject);
+                            });
     }
 
     void DisplayPicInMainCard(Sprite displaySprite)
     {
         mainCardObject.SetSiblingIndex(3);
         cardBG.SetActive(true);
+        Debug.Log($"selected Sprite name :: {displaySprite.name}");
 
         Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0.5f, 1f);
-        Utilities.Instance.ScaleObject(mainCardObject.transform, 2f, 3f);
-        Utilities.Instance.ANIM_RotateAndReveal(mainCardObject.transform, 
+        Utilities.Instance.ScaleObject(mainCardObject, 2f, 3f, DisplayInteractiveBtns);
+        Utilities.Instance.ANIM_RotateAndReveal(mainCardObject, 
                             () => {
                                 ChangeSprite(mainCardObject.GetChild(1).GetComponent<Image>(), frontCardSprite); 
                                 AssignImage(mainCardObject, displaySprite); 
@@ -267,7 +281,7 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void ChangeSprite(Image obj, Sprite spriteToChange)
     {
-        obj.GetComponent<Image>().sprite = spriteToChange;
+        obj.sprite = spriteToChange;
     }
 
     void DisplayRearCard(Transform mainCardObj)
@@ -280,19 +294,21 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void AssignImage(Transform mainCardObj, Sprite displaySprite)
     {
-        // mainCardObj.transform.GetChild(0).gameObject.SetActive(true);
-        // mainCardObj.transform.GetChild(1).gameObject.SetActive(true);
         mainCardObj.transform.GetChild(2).gameObject.SetActive(true);
-        // mainCardObj.transform.GetChild(3).gameObject.SetActive(true);
+        mainCardObject.GetChild(4).gameObject.SetActive(true);
 
-        mainCardObj.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = displaySprite;
-        mainCardObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = displaySprite.name;
+        mainCardObj.transform.GetChild(2).GetChild(0).GetComponent<Image>().sprite = displaySprite;
+        mainCardObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = displaySprite.name;
     }
 
     void DisplayInteractiveBtns()
     {
-        Utilities.Instance.ANIM_ShrinkObject(mainCardObject.transform.GetChild(0), 0f);
-        mainCardObject.transform.GetChild(0).gameObject.SetActive(true);
+        Utilities.Instance.ANIM_ShrinkObject(mainCardObject.GetChild(3), 0f);
+        mainCardObject.GetChild(0).gameObject.SetActive(true);
+        mainCardObject.GetChild(3).gameObject.SetActive(true);
+
+        Utilities.Instance.ANIM_ShowBounceNormal(mainCardObject.GetChild(3));
+        Utilities.Instance.ANIM_MoveWithScaleUp(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.down * 1.5f));
     }
 
     Sprite GetVowelSprite(string selectedSTR)
