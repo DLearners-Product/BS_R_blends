@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 4dcd491ff9a788d49b4501b74b70878e
+guid: 2e061028e34fb754da218e1ff2f54d87
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8353526321278167776
-    second: T 3 panel_0
+      213: 5236408398719454875
+    second: T 10 panel_0
   - first:
-      213: -8945918734072813090
-    second: T 3 panel_1
-  - first:
-      213: 3410395423058861701
-    second: T 3 panel_2
+      213: 5103352792138323812
+    second: T 10 panel_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -50,7 +47,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 14
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -108,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T 3 panel_0
+      name: T 10 panel_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1408
-        width: 651
-        height: 576
+        x: 128
+        y: 1128
+        width: 600
+        height: 816
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ea29a92eefade370800000000000000
-      internalID: 8353526321278167776
+      spriteID: b9e8b88e1b57ba840800000000000000
+      internalID: 5236408398719454875
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: T 3 panel_1
+      name: T 10 panel_1
       rect:
         serializedVersion: 2
-        x: 909
-        y: 1675
-        width: 227
-        height: 272
+        x: 130
+        y: 856
+        width: 446
+        height: 152
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,29 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed9e3121f46b9d380800000000000000
-      internalID: -8945918734072813090
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T 3 panel_2
-      rect:
-        serializedVersion: 2
-        x: 1176
-        y: 1675
-        width: 232
-        height: 272
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58e9a077198245f20800000000000000
-      internalID: 3410395423058861701
+      spriteID: 46717e26350c2d640800000000000000
+      internalID: 5103352792138323812
       vertices: []
       indices: 
       edges: []

@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 50860b3806a964e4c81b437527b03b99
+guid: 5aaebb616989deb4aa25dc766ba93868
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 344081368198801462
-    second: T 4 panel_0
-  - first:
-      213: -4144164956411105395
-    second: T 4 panel_1
-  - first:
-      213: -154552706424256712
-    second: T 4 panel_2
-  - first:
-      213: -4745215905793728127
-    second: T 4 panel_3
-  - first:
-      213: -7047186501950033177
-    second: T 4 panel_4
+      213: -523735664428948961
+    second: T 9 panel_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -114,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: T 4 panel_0
+      name: T 9 panel_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 1713
-        width: 346
-        height: 260
+        x: 88
+        y: 957
+        width: 1711
+        height: 1051
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,92 +116,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 638e15d6e2c66c400800000000000000
-      internalID: 344081368198801462
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T 4 panel_1
-      rect:
-        serializedVersion: 2
-        x: 479
-        y: 1712
-        width: 347
-        height: 264
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d8f6e7acde7fc76c0800000000000000
-      internalID: -4144164956411105395
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T 4 panel_2
-      rect:
-        serializedVersion: 2
-        x: 984
-        y: 1760
-        width: 205
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 837c182e12beaddf0800000000000000
-      internalID: -154552706424256712
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T 4 panel_3
-      rect:
-        serializedVersion: 2
-        x: 1331
-        y: 1782
-        width: 334
-        height: 165
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 181a1a0664b952eb0800000000000000
-      internalID: -4745215905793728127
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: T 4 panel_4
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 1320
-        width: 661
-        height: 250
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e2375dc63d533e90800000000000000
-      internalID: -7047186501950033177
+      spriteID: f12628520315bb8f0800000000000000
+      internalID: -523735664428948961
       vertices: []
       indices: 
       edges: []
