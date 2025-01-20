@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,23 +7,24 @@ public class Thumbnail9Controller : MonoBehaviour
 {
     public TextMeshProUGUI questionText;
     public GameObject answerObject;
+    public GameObject questionParentObject;
     public string[] questionSTR;
     public string[] answerSTR;
     public GameObject[] optionObjects;
+    public GameObject activityCompleted;
     int index = 0;
-    Color intialColor;
+    Color initialColor;
 
     void Start()
     {
         questionText.text = questionSTR[index];
-        intialColor = answerObject.GetComponent<Image>().color;
+        initialColor = answerObject.GetComponent<Image>().color;
+        activityCompleted.SetActive(false);
         ShrinkOptionObjects();
         SpawnOptions();
     }
 
     void OnEnable() {
-        ImageDragandDrop.onDragStart += OnObjectDragStart;
-        ImageDragandDrop.onDragEnd += OnObjectDragEnd;
         ImageDropSlot.onDropInSlot += OnObjectDrop;
     }
 
@@ -38,37 +40,45 @@ public class Thumbnail9Controller : MonoBehaviour
         }
     }
 
-    void OnObjectDragStart(GameObject dragObject)
-    {
-        Utilities.Instance.ScaleObject(answerObject.transform, scaleSize: 1.25f, duration: 0.5f);
-    }
-
-    void OnObjectDragEnd(GameObject dragObject)
-    {
-        Utilities.Instance.ScaleObject(answerObject.transform, scaleSize: 1f, duration: 0.5f);
-    }
-
     void RightAnswer()
     {
-        MoveAnswerPanel(Vector3.up * 1.25f);
+        StartCoroutine(StartMovingPanelAfter(0.5f));
+    }
+
+    IEnumerator StartMovingPanelAfter(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        MoveAnswerPanel(Vector3.up * 3f);
     }
 
     void ChangeQuestion()
     {
         index++;
+
+        if(index == questionSTR.Length) { Debug.Log("came to if statement"); activityCompleted.SetActive(true); return; }
+
+        Debug.Log("In changeQuestion func....");
+
         questionText.text = questionSTR[index];
+        answerObject.GetComponent<Image>().color = initialColor;
+        answerObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
 
-    void MoveAnswerPanel(Vector3 _position)
+    void MoveAnswerPanel(Vector3 _position, bool canMove=true)
     {
         Vector3 endPos = answerObject.transform.position + _position;
-        Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: () => { MoveQuestionPanel(Vector3.up * 1.25f); });
+        if(canMove)
+            Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: () => { MoveQuestionPanel(Vector3.up * 4f); });
+        else
+            Utilities.Instance.ANIM_Move(answerObject.transform, endPos);
     }
 
     void MoveQuestionPanel(Vector3 _position)
     {
-        Vector3 endPos = questionText.transform.parent.position + _position;
-        Utilities.Instance.ANIM_Move(questionText.transform.parent, endPos, callBack: ChangeQuestion);
+        Vector3 endPos = questionParentObject.transform.position + _position;
+        Utilities.Instance.ANIM_MoveAndReturnToOriginalPos(questionParentObject.transform, endPos, ChangeQuestion, () => {
+            MoveAnswerPanel(Vector3.down * 3f, false);
+        });
     }
 
     void ShrinkOptionObjects()

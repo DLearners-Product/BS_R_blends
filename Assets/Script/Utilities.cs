@@ -193,16 +193,14 @@ public class Utilities : MonoGenericSingleton<Utilities>
         }
     }
 
-    public void ANIM_MoveUpDown(Transform obj, Vector3 endPosition, TweenCallback callback=null)
+    public void ANIM_MoveAndReturnToOriginalPos(Transform obj, Vector3 endPosition, TweenCallback callback=null, TweenCallback _endCallback = null)
     {
         Vector3 startPosition = obj.position;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(obj.DOMove(endPosition, 1f));
-        // foreach (var func in callback)
-        // {
         sequence.AppendCallback(callback);
-        // }
         sequence.Append(obj.DOMove(startPosition, 1f));
+        sequence.AppendCallback(_endCallback);
         sequence.Play();
     }
 
