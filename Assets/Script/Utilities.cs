@@ -193,14 +193,14 @@ public class Utilities : MonoGenericSingleton<Utilities>
         }
     }
 
-    public void ANIM_MoveAndReturnToOriginalPos(Transform obj, Vector3 endPosition, TweenCallback callback=null, TweenCallback _endCallback = null)
+    public void ANIM_MoveAndReturnToOriginalPos(Transform obj, Vector3 endPosition, TweenCallback callbackOnMid=null, TweenCallback _callbackOnEnd = null, float destReachTime=1f, float origPosReachTime=1f)
     {
         Vector3 startPosition = obj.position;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(obj.DOMove(endPosition, 1f));
-        sequence.AppendCallback(callback);
-        sequence.Append(obj.DOMove(startPosition, 1f));
-        sequence.AppendCallback(_endCallback);
+        sequence.Append(obj.DOMove(endPosition, destReachTime));
+        sequence.AppendCallback(callbackOnMid);
+        sequence.Append(obj.DOMove(startPosition, origPosReachTime));
+        sequence.AppendCallback(_callbackOnEnd);
         sequence.Play();
     }
 

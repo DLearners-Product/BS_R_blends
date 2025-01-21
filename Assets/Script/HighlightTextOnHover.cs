@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField]
+    Camera mainCam;
     TextMeshProUGUI _text;
     bool pointerEntered;
     string displayText;
@@ -14,6 +16,7 @@ public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
         pointerEntered = false;
         _text = GetComponent<TextMeshProUGUI>();
         displayText = _text.text;
+        mainCam = mainCam ?? Camera.main;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -30,7 +33,7 @@ public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
     private void Update() {
         if(!pointerEntered) return;
 
-        var wordIndex = TMP_TextUtilities.FindIntersectingWord(_text, Input.mousePosition, Camera.main);
+        var wordIndex = TMP_TextUtilities.FindIntersectingWord(_text, Input.mousePosition, mainCam);
         Debug.Log(wordIndex);
 
         if (wordIndex != -1)
