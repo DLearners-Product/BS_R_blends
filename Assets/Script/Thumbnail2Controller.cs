@@ -223,7 +223,7 @@ public class Thumbnail2Controller : MonoBehaviour
         dragObj.transform.rotation = Quaternion.Slerp(dragObj.transform.rotation, targetRotation, rotateSpeed);
     }
 
-    void OnCardDrop(GameObject droppedObj)
+    void OnCardDrop(GameObject droppedObj, GameObject dropSlotObject)
     {
         var selectedLetter = droppedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
         Debug.Log($"Dropped Object : {selectedLetter}");

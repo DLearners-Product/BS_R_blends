@@ -35,7 +35,6 @@ public class ImageDragandDrop : MonoBehaviour, IBeginDragHandler,IEndDragHandler
     {
         onDragStart?.Invoke(eventData.pointerDrag);
 
-        // this.transform.SetParent(originalParent.parent);
         canvasGroup.alpha = .5f;
         canvasGroup.blocksRaycasts = false;
     }
@@ -49,9 +48,20 @@ public class ImageDragandDrop : MonoBehaviour, IBeginDragHandler,IEndDragHandler
         currentPos = mousePos;
     }
 
+    public void ResetCurrentPositionAsDefault()
+    {
+        min = GetComponent<RectTransform>().offsetMin;
+        max = GetComponent<RectTransform>().offsetMax;
+    }
+
+    public void SetResetPosition(RectTransform resetPosition)
+    {
+        min = resetPosition.offsetMin;
+        max = resetPosition.offsetMax;
+    }
+
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Debug.Log($"OnEndDragCalled");
         onDragEnd?.Invoke(eventData.pointerDrag);
 
         canvasGroup.alpha = 1f;

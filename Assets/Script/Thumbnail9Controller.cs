@@ -32,7 +32,7 @@ public class Thumbnail9Controller : MonoBehaviour
         ImageDropSlot.onDropInSlot -= OnObjectDrop;
     }
 
-    void OnObjectDrop(GameObject dropObj)
+    void OnObjectDrop(GameObject dropObj, GameObject dropSlotObject)
     {
         string selectedOptionSTR = dropObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
         if(answerSTR[index] == selectedOptionSTR)

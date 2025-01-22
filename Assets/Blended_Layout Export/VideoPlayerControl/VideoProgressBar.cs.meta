@@ -1,11 +1,18 @@
 fileFormatVersion: 2
 guid: babb526a0c99bbc49a57597e4f7d179e
-timeCreated: 1524690120
-licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - videoPlayer: {instanceID: 0}
+  - videoLoading: {fileID: 4945578818612628505, guid: 7bbcfff65bcba47eca147f4dd353b3bd,
+      type: 3}
+  - videoLoadingErrorPanel: {fileID: 6766524044836817131, guid: 7c1afd785e6e44b1cac383a50715afac,
+      type: 3}
+  - spawnedLoader: {instanceID: 0}
+  - thumbnailTexture: {instanceID: 0}
+  - Cam: {instanceID: 0}
+  - progress: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
