@@ -137,7 +137,7 @@ public class Main_Blended : MonoBehaviour
        /////////////////////////////////////////////////////////// STR_date_with_time = System.DateTime.Now.ToString("dd-MM-yy HH:mm");
 
         i_vol = 0;
-        B_pause = false;
+        B_pause = true;
         levelno = 0;
         THI_cloneLevels();
 
@@ -773,6 +773,8 @@ public class Main_Blended : MonoBehaviour
 
     public void THI_cloneLevels()
     {
+        B_pause = true;
+
         ImmersiveObjects = new GameObject[0];
         //  Debug.Log("zzzzzzz111111==="+ImmersiveObjects.Length);
         if (G_currenlevel != null)
@@ -883,7 +885,6 @@ public class Main_Blended : MonoBehaviour
 
     public void levelselect(int level)
     {
-        B_pause = false;
         levelno = level;
       //  THI_videoSlidesMute();
         THI_cloneLevels();

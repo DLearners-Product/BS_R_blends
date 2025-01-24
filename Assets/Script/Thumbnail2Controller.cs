@@ -21,10 +21,12 @@ public class Thumbnail2Controller : MonoBehaviour
     public Material normalMaterial,
                     glowMaterial;
     public Color fontChangeColor;
+    public GameObject activityCompleted;
     int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 10;
     int counter = 0;
     int spawnPointIndex = 0;
     float mvoeStartTime = -1f;
+    int selectedVowelsCount = 0;
 
     [Header("Card Settings")]
     public GameObject cardParent;
@@ -35,9 +37,11 @@ public class Thumbnail2Controller : MonoBehaviour
                     frontCardSprite;
     public GameObject cardBG;
     public Sprite[] _vowelSprites;
+    public AudioClip[] vowelsWordClips;
     public Transform mainCardObject;
     List<string> vowelsChar = new List<string>(){"a", "e", "i", "o", "u"};
     int alphabetASCIIVal = 65;
+    string currentlyDroppedVowelCard = "";
 
     void Start()
     {
@@ -54,7 +58,6 @@ public class Thumbnail2Controller : MonoBehaviour
         InvokeRepeating(nameof(InstantiateCloud), 0f, 2f);
         Invoke(nameof(MoveEnvironment), 2f);
         cardBG.GetComponent<Image>().color = new Color(Color.white.r, Color.white.g, Color.white.b, 0);
-        // InvokeRepeating(nameof(MoveEnvironment), 2f, 2f);
         ShrinkAlphabetObjects();
     }
 
@@ -101,7 +104,6 @@ public class Thumbnail2Controller : MonoBehaviour
         // rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, 0);
         // rainbowObject.GetComponent<Image>().enabled = true;
         rainbowObject.SetActive(true);
-        // StartCoroutine(MakeRainBowVisible());
         MakeRainBow();
     }
 
@@ -118,21 +120,6 @@ public class Thumbnail2Controller : MonoBehaviour
         Utilities.Instance.ANIM_ImageFill(rainbowObject.GetComponent<Image>(), 3f, PopAlphabetObjects);
         rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
         // PopAlphabetObjects();
-    }
-
-    IEnumerator MakeRainBowVisible()
-    {
-        var rainbowColor = rainbowObject.GetComponent<Image>().color;
-        float alphaValue = 0;
-        while (true)
-        {
-            if(alphaValue >= 1f) break;
-            yield return new WaitForSeconds(0.15f);
-            alphaValue += 0.05f;
-            rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, Mathf.Clamp01(alphaValue));
-        }
-        rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
-        PopAlphabetObjects();
     }
 
     void PopAlphabetObjects()
@@ -226,19 +213,21 @@ public class Thumbnail2Controller : MonoBehaviour
     void OnCardDrop(GameObject droppedObj, GameObject dropSlotObject)
     {
         var selectedLetter = droppedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-        Debug.Log($"Dropped Object : {selectedLetter}");
         ResetRainbowLetterMaterial();
+
         Destroy(droppedObj);
+
         foreach (var alphabet in rainbowPoints)
         {
             if(alphabet.GetComponent<TextMeshProUGUI>().text.ToLower().Equals(selectedLetter.ToLower()))
             {
                 if(vowelsChar.Contains(selectedLetter.ToLower()))
                 {
+                    currentlyDroppedVowelCard = selectedLetter;
+                    selectedVowelsCount++;
                     var displaySprite = GetVowelSprite(selectedLetter.ToLower());
                     DisplayPicInMainCard(displaySprite);
                 }
-                Debug.Log($"Chamge color to {alphabet.GetComponent<TextMeshProUGUI>().text}");
                 alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
             }
         }
@@ -250,13 +239,25 @@ public class Thumbnail2Controller : MonoBehaviour
         Utilities.Instance.ANIM_MoveWithScaleDown(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.up * 1.5f), ReturnToOriginalState);
     }
 
+    public void OnSpeakeBTNClick()
+    {
+        var clip = GetVowelAC(currentlyDroppedVowelCard);
+        AudioManager.PlayAudio(clip);
+    }
+
     void ReturnToOriginalState()
     {
         mainCardObject.GetChild(0).gameObject.SetActive(false);
         mainCardObject.GetChild(3).gameObject.SetActive(false);
         Utilities.Instance.ANIM_ImageFade(cardBG.GetComponent<Image>(), 0f, 1f);
 
-        Utilities.Instance.ScaleObject(mainCardObject, 1f, 3f, () => { cardBG.SetActive(false); mainCardObject.SetAsFirstSibling(); });
+        Utilities.Instance.ScaleObject(mainCardObject, 1f, 3f, () => { 
+            cardBG.SetActive(false); mainCardObject.SetAsFirstSibling();
+            if(selectedVowelsCount == vowelsChar.Count)
+            {
+                activityCompleted.SetActive(true);
+            }
+        });
         Utilities.Instance.ANIM_RotateAndReveal(mainCardObject, 
                             () => { 
                                 ChangeSprite(mainCardObject.GetChild(1).GetComponent<Image>(), rearCardSprite); 
@@ -318,6 +319,20 @@ public class Thumbnail2Controller : MonoBehaviour
             if(_sprite.name.Substring(0, 1).ToLower().Equals(selectedSTR.ToLower()))
             {
                 return _sprite;
+            }
+        }
+        return null;
+    }
+
+    AudioClip GetVowelAC(string selectedSTR)
+    {
+        foreach (var clip in vowelsWordClips)
+        {
+            Debug.Log($"{clip.name.Substring(clip.name.Length - 1, 1).ToLower()} compared to {selectedSTR.ToLower()}");
+            if(clip.name.Substring(-1, 1).ToLower().Equals(selectedSTR.ToLower()))
+            {
+                Debug.Log($"returning audio {clip.name}");
+                return clip;
             }
         }
         return null;

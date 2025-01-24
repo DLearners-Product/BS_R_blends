@@ -127,6 +127,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 2162583257072793182}
+  videoLoading: {fileID: 4945578818612628505, guid: 7bbcfff65bcba47eca147f4dd353b3bd,
+    type: 3}
+  videoLoadingErrorPanel: {fileID: 6766524044836817131, guid: 7c1afd785e6e44b1cac383a50715afac,
+    type: 3}
+  spawnedLoader: {fileID: 0}
+  thumbnailTexture: {fileID: 0}
   Cam: {fileID: 0}
   progress: {fileID: 2162583257930756154}
 --- !u!1 &2162583257072793180
@@ -194,9 +200,9 @@ VideoPlayer:
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
-  m_Looping: 1
+  m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
 --- !u!1 &2162583257240696874
