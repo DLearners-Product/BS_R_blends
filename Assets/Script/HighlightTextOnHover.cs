@@ -16,7 +16,7 @@ public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
         pointerEntered = false;
         _text = GetComponent<TextMeshProUGUI>();
         displayText = _text.text;
-        mainCam = mainCam ?? Camera.main;
+        mainCam = (mainCam == null) ? Camera.main : mainCam;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -34,7 +34,7 @@ public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
         if(!pointerEntered) return;
 
         var wordIndex = TMP_TextUtilities.FindIntersectingWord(_text, Input.mousePosition, mainCam);
-        Debug.Log(wordIndex);
+        Debug.Log($"{wordIndex} :: {mainCam}");
 
         if (wordIndex != -1)
         {

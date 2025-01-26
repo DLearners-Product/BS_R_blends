@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,6 +18,9 @@ public class Thumbnail7Controller : MonoBehaviour
     public string[] answerTexts;
     public GameObject counterObj;
     public GameObject activityCompletedScreen;
+    public AudioClip[] questionAudioClips;
+    public AudioClip[] answerAudioClips;
+    public AudioClip wrongAudioClip;
     GameObject _spawnedObject;
     GameObject prevSpawnedObject;
     int currentIndex = 0;
@@ -39,6 +44,11 @@ public class Thumbnail7Controller : MonoBehaviour
         Utilities.Instance.ANIM_CorrectScaleEffect(counterObj.transform.GetChild(0));
     }
 
+    void AssignTextValuesToSpawnedObj(string questionText)
+    {
+        _spawnedObject.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = questionText;
+    }
+
     void SpawnObject()
     {
         if(currentIndex == activityTexts.Length) {activityCompletedScreen.SetActive(true); return;}
@@ -54,7 +64,12 @@ public class Thumbnail7Controller : MonoBehaviour
         
         _spawnedObject.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<Button>().onClick.AddListener(OnTextClicked);
         _spawnedObject.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = textRelatedSprites[currentIndex];
-        _spawnedObject.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = activityTexts[currentIndex];
+        AssignTextValuesToSpawnedObj(activityTexts[currentIndex]);
+        _spawnedObject.GetComponent<AudioSource>().clip = questionAudioClips[currentIndex];
+
+        StartCoroutine(WaitAndCallFun(_boardShakeAnimationClip.length, ()=>{
+            _spawnedObject.GetComponent<AudioSource>().Play();
+        }));
 
         Utilities.Instance.ANIM_ShrinkObject(_spawnedObject.transform, 0f);
         _spawnedObject.transform.position = startPoint.position;
@@ -67,42 +82,54 @@ public class Thumbnail7Controller : MonoBehaviour
             Utilities.Instance.ANIM_MoveWithScaleUp(objectToMove, movePoint.position, SpawnCounter);
         else
             Utilities.Instance.ANIM_MoveWithScaleUp(objectToMove, movePoint.position);
-        StartCoroutine(WaitAndPlayAnimation(0.25f));
+        StartCoroutine(WaitAndCallFun(0.25f, ()=>{
+            _spawnedObject.GetComponent<Animator>().Play("shake_board");
+        }));
     }
 
     void MoveObjectWithScalDown(Transform objectToMove, Transform movePoint)
     {
         var _obj = objectToMove.gameObject;
         Utilities.Instance.ANIM_MoveWithScaleDown(objectToMove, movePoint.position, ()=>{Destroy(_obj);});
-        // StartCoroutine(WaitAndPlayAnimation(0.25f));
     }
 
-    IEnumerator WaitAndPlayAnimation(float waitTime)
+    IEnumerator WaitAndCallFun(float waitTime, Action _func)
     {
         yield return new WaitForSeconds(waitTime);
-        _spawnedObject.GetComponent<Animator>().Play("shake_board");
+        _func();
     }
 
     void OnTextClicked()
     {
         TextMeshProUGUI _text = EventSystem.current.currentSelectedGameObject.GetComponent<TextMeshProUGUI>();
         var wordIndex = TMP_TextUtilities.FindIntersectingWord(_text, Input.mousePosition, Camera.main);
-        Debug.Log(_text.text);
 
         if (wordIndex != -1)
         {
             var clickedText = _text.textInfo.wordInfo[wordIndex].GetWord();
             if(clickedText.Trim() == answerTexts[currentIndex].Trim())
             {
-                currentIndex++;
-                SpawnObject();
+                string[] textArr = _text.text.Split(' ');
+                textArr[wordIndex] = $"<color=green><b>{textArr[wordIndex]}</b></color>";
+                _spawnedObject.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<HighlightTextOnHover>().enabled = false;
+
+                AssignTextValuesToSpawnedObj(string.Join(" ", textArr));
+
+                AudioManager.PlayAudio(answerAudioClips[currentIndex]);
+                StartCoroutine(WaitAndCallFun(answerAudioClips[currentIndex].length + 1f, () => {
+                    currentIndex++;
+                    SpawnObject();
+                }));
+
+            }else{
+                AudioManager.PlayAudio(wrongAudioClip);
             }
         }
     }
 
     void UpdateCounter()
     {
-        counterObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{currentIndex} / {answerTexts.Length}";
+        counterObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{currentIndex + 1} / {answerTexts.Length}";
     }
 
 }

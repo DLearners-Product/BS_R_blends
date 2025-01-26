@@ -40,8 +40,9 @@ public class Thumbnail2Controller : MonoBehaviour
     public AudioClip[] vowelsWordClips;
     public Transform mainCardObject;
     List<string> vowelsChar = new List<string>(){"a", "e", "i", "o", "u"};
-    int alphabetASCIIVal = 65;
-    string currentlyDroppedVowelCard = "";
+    int A_ASCIIVal = 65;
+    Sprite displaySprite;
+    AudioClip currentVowelAudioClip;
 
     void Start()
     {
@@ -144,7 +145,7 @@ public class Thumbnail2Controller : MonoBehaviour
     {
         var _cardSpawnIndex = cardSpawnIndex;
         var spawnedCard = Instantiate(cardPrefab, cardSpawnPoint1);
-        spawnedCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((char)(alphabetASCIIVal + cardSpawnIndex)).ToString();
+        spawnedCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((char)(A_ASCIIVal + cardSpawnIndex)).ToString();
 
         spawnedCard.transform.position = cardParent.transform.GetChild(0).position;
         Vector3 endMovePosition;
@@ -223,9 +224,8 @@ public class Thumbnail2Controller : MonoBehaviour
             {
                 if(vowelsChar.Contains(selectedLetter.ToLower()))
                 {
-                    currentlyDroppedVowelCard = selectedLetter;
                     selectedVowelsCount++;
-                    var displaySprite = GetVowelSprite(selectedLetter.ToLower());
+                    GetSelectedVowelAssets(selectedLetter.ToLower());
                     DisplayPicInMainCard(displaySprite);
                 }
                 alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
@@ -241,8 +241,7 @@ public class Thumbnail2Controller : MonoBehaviour
 
     public void OnSpeakeBTNClick()
     {
-        var clip = GetVowelAC(currentlyDroppedVowelCard);
-        AudioManager.PlayAudio(clip);
+        AudioManager.PlayAudio(currentVowelAudioClip);
     }
 
     void ReturnToOriginalState()
@@ -312,29 +311,15 @@ public class Thumbnail2Controller : MonoBehaviour
         Utilities.Instance.ANIM_MoveWithScaleUp(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.down * 1.5f));
     }
 
-    Sprite GetVowelSprite(string selectedSTR)
+    void GetSelectedVowelAssets(string selectedSTR)
     {
-        foreach (var _sprite in _vowelSprites)
+        for (int i = 0; i < _vowelSprites.Length; i++)
         {
-            if(_sprite.name.Substring(0, 1).ToLower().Equals(selectedSTR.ToLower()))
+            if(_vowelSprites[i].name.Substring(0, 1).ToLower().Equals(selectedSTR.ToLower()))
             {
-                return _sprite;
+                displaySprite = _vowelSprites[i];
+                currentVowelAudioClip = vowelsWordClips[i];
             }
         }
-        return null;
-    }
-
-    AudioClip GetVowelAC(string selectedSTR)
-    {
-        foreach (var clip in vowelsWordClips)
-        {
-            Debug.Log($"{clip.name.Substring(clip.name.Length - 1, 1).ToLower()} compared to {selectedSTR.ToLower()}");
-            if(clip.name.Substring(-1, 1).ToLower().Equals(selectedSTR.ToLower()))
-            {
-                Debug.Log($"returning audio {clip.name}");
-                return clip;
-            }
-        }
-        return null;
     }
 }

@@ -18,6 +18,7 @@ public class Thumbnail6Controller : MonoBehaviour
     public GameObject G_questionImagePrefab;
     public GameObject G_activityCompleted;
     public AudioSource AS_emptyAudioSource;
+    public AudioClip AC_wrongAudioClip;
     GameObject _currentQuestion = null;
     GameObject _prevQuestion = null;
     GameObject _currentSelectedOption = null;
@@ -60,7 +61,8 @@ public class Thumbnail6Controller : MonoBehaviour
     {
         Utilities.Instance.ANIM_RotateObjWithCallback(_obj, 
             () => {
-                Thumbnail6Controller.EnableOptionText(_obj.gameObject);
+                    _obj.transform.GetChild(1).gameObject.SetActive(false);
+                    _obj.transform.GetChild(0).gameObject.SetActive(true);
             }
         );
     }
@@ -69,7 +71,8 @@ public class Thumbnail6Controller : MonoBehaviour
     {
         Utilities.Instance.ANIM_RotateObjWithCallback(_obj, 
             () => {
-                Thumbnail6Controller.EnableOptionBG(_obj.gameObject);
+                _obj.transform.GetChild(0).gameObject.SetActive(false);
+                _obj.transform.GetChild(1).gameObject.SetActive(true);
             }
         );
     }
@@ -114,6 +117,7 @@ public class Thumbnail6Controller : MonoBehaviour
             PlayOptionVO(selectedOptText);
             Invoke(nameof(SpawnQuestion), 3.5f);
         }else{
+            PlayAudio(AC_wrongAudioClip);
             EnableClicking();
         }
     }

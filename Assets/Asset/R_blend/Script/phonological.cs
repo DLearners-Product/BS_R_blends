@@ -14,6 +14,7 @@ public class phonological : MonoBehaviour
     public TextMeshProUGUI questionText, answerText;
     public TextMeshProUGUI optText1, optText2, optText3;
     public Transform position1, position2, position3;
+    public AudioClip[] textAudioClips;
     int currentIndex = 0;
     Transform[] _optionsObjs;
     string displayText;
@@ -53,10 +54,16 @@ public class phonological : MonoBehaviour
 
     void PopUp()
     {
-        foreach (var item in displayObjs)
+        // foreach (var item in displayObjs)
+        // {
+        //     Utilities.Instance.ANIM_ShowBounceNormal(item.transform);
+        // }
+        int i = 0;
+        for (; i < displayObjs.Length - 1; i++)
         {
-            Utilities.Instance.ANIM_ShowBounceNormal(item.transform);
+            Utilities.Instance.ANIM_ShowBounceNormal(displayObjs[i].transform);
         }
+        Utilities.Instance.ANIM_ShowBounceNormal(displayObjs[i].transform, callback : OnSpeakerBTNClick);
     }
 
     void SpawnQuestion()
@@ -108,7 +115,7 @@ public class phonological : MonoBehaviour
 
         for (int i = 0; i < _optionsObjs.Length; i++)
         {
-            Debug.Log($"{_optionsObjs[i].parent.name} == {selectedObjName}");
+            // Debug.Log($"{_optionsObjs[i].parent.name} == {selectedObjName}");
             if(_optionsObjs[i].parent.name.Contains(selectedObjName)) return i;
         }
         return -1;
@@ -118,8 +125,8 @@ public class phonological : MonoBehaviour
     {
         GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
         int optionIndex = GetOptionPositionIndex(selectedObj.transform);
-        Debug.Log($"selectedObj : {selectedObj.name}");
-        Debug.Log($"Selected Object Index : {optionIndex}");
+        // Debug.Log($"selectedObj : {selectedObj.name}");
+        // Debug.Log($"Selected Object Index : {optionIndex}");
         displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{displayText.Substring(2)}";
 
         if(optionIndex == 0)
@@ -127,6 +134,17 @@ public class phonological : MonoBehaviour
             ShiftOptionObjectLeft();
         } else if(optionIndex == 1) {
             ShiftOptionObjectRight();
+        }
+    }
+
+    public void OnSpeakerBTNClick()
+    {
+        foreach (var audioClip in textAudioClips)
+        {
+            if(audioClip.name.Contains(displayText))
+            {
+                AudioManager.PlayAudio(audioClip);
+            }
         }
     }
 
@@ -141,6 +159,7 @@ public class phonological : MonoBehaviour
 
     void RefreshDisplayText()
     {
+        Utilities.Instance.ANIM_ScaleUpDelayScaleDown(answerText.transform.parent);
         answerText.text = displayText;
     }
 }

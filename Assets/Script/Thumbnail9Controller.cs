@@ -9,8 +9,11 @@ public class Thumbnail9Controller : MonoBehaviour
     public GameObject answerObject;
     public GameObject questionParentObject;
     public string[] questionSTR;
+    public AudioClip[] questionAudioClips;
     public string[] answerSTR;
     public GameObject[] optionObjects;
+    public AudioClip[] optionAudioClips;
+    public AudioClip wrongAudioClip;
     public GameObject activityCompleted;
     int index = 0;
     Color initialColor;
@@ -40,7 +43,10 @@ public class Thumbnail9Controller : MonoBehaviour
             answerObject.GetComponent<Image>().color = Color.white;
             answerObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = selectedOptionSTR;
             Destroy(dropObj);
-            RightAnswer();
+            AudioManager.PlayAudio(optionAudioClips[index]);
+            Invoke(nameof(RightAnswer), optionAudioClips[index].length);
+        }else{
+            AudioManager.PlayAudio(wrongAudioClip);
         }
     }
 
@@ -68,13 +74,18 @@ public class Thumbnail9Controller : MonoBehaviour
         answerObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
     }
 
+    public void OnSpeakerBTNClicked()
+    {
+        AudioManager.PlayAudio(questionAudioClips[index]);
+    }
+
     void MoveAnswerPanel(Vector3 _position, bool canMove=true)
     {
         Vector3 endPos = answerObject.transform.position + _position;
         if(canMove)
             Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: () => { MoveQuestionPanel(Vector3.up * 4f); });
         else
-            Utilities.Instance.ANIM_Move(answerObject.transform, endPos);
+            Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: OnSpeakerBTNClicked);
     }
 
     void MoveQuestionPanel(Vector3 _position)
@@ -95,7 +106,7 @@ public class Thumbnail9Controller : MonoBehaviour
 
     void SpawnOptions(int index = 0)
     {
-        if(index >= optionObjects.Length) return;
+        if(index >= optionObjects.Length) { OnSpeakerBTNClicked(); return;}
 
         Utilities.Instance.ANIM_ShowBounceNormal(optionObjects[index].transform, shrinkUpTime: 0.25f, callback: () => {
             SpawnOptions(++index);

@@ -101,6 +101,25 @@ MonoBehaviour:
   - drummer's
   counterObj: {fileID: 8591799986046013636}
   activityCompletedScreen: {fileID: 7377499848405094372}
+  questionAudioClips:
+  - {fileID: 8300000, guid: 27c00fdbe85c4ec40aa0d9923e017b27, type: 3}
+  - {fileID: 8300000, guid: b7588077596f1484d8a5d924f7080e7e, type: 3}
+  - {fileID: 8300000, guid: 4edf043b44118cf489725b793f40c692, type: 3}
+  - {fileID: 8300000, guid: 64cffa8553bc38647a7d9ccaae1fea05, type: 3}
+  - {fileID: 8300000, guid: f518493c15fd34849ad4b09f81cf1424, type: 3}
+  - {fileID: 8300000, guid: 8346d758bd4c8214caac35f7cf9a0f4b, type: 3}
+  - {fileID: 8300000, guid: 7bb26a72586fd8843bda5d2f703a4cbe, type: 3}
+  - {fileID: 8300000, guid: aba83b40ec4841746b2bbded236e4611, type: 3}
+  answerAudioClips:
+  - {fileID: 8300000, guid: 664b9c51550be4c43be5f561d6115613, type: 3}
+  - {fileID: 8300000, guid: 7bf6d42a967fff54f903de9d50a8c803, type: 3}
+  - {fileID: 8300000, guid: 51c2b0e411c9bb044852b3d45ca3c0c7, type: 3}
+  - {fileID: 8300000, guid: bdd8cc0f6131c1b4694f28154fab6b60, type: 3}
+  - {fileID: 8300000, guid: 071250ff3fafeb640b8c73ab5937dd29, type: 3}
+  - {fileID: 8300000, guid: 41b45d446103ab24481f06c4952daa3b, type: 3}
+  - {fileID: 8300000, guid: b649f2a0aa78b514685706b2b504bcf4, type: 3}
+  - {fileID: 8300000, guid: 70ef2b037de48484da5574324cecfea9, type: 3}
+  wrongAudioClip: {fileID: 8300000, guid: 14d2019f0fe09d74587e4f6129a2ddd6, type: 3}
 --- !u!1 &8591799985235820939
 GameObject:
   m_ObjectHideFlags: 0

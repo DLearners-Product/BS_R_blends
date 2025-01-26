@@ -1298,6 +1298,7 @@ MonoBehaviour:
     type: 3}
   G_activityCompleted: {fileID: 5332157759774929404}
   AS_emptyAudioSource: {fileID: 6386580005965823297}
+  AC_wrongAudioClip: {fileID: 8300000, guid: 14d2019f0fe09d74587e4f6129a2ddd6, type: 3}
 --- !u!1 &6386580006932386565
 GameObject:
   m_ObjectHideFlags: 0
