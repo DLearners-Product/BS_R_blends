@@ -143,7 +143,10 @@ public class Thumbnail2Controller : MonoBehaviour
     {
         var _cardSpawnIndex = cardSpawnIndex;
         var spawnedCard = Instantiate(cardPrefab, cardSpawnPoint1);
+
         spawnedCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((char)(A_ASCIIVal + cardSpawnIndex)).ToString();
+        spawnedCard.transform.GetChild(0).gameObject.SetActive(true);
+        spawnedCard.transform.GetComponent<Image>().sprite = frontCardSprite;
 
         spawnedCard.transform.position = cardParent.transform.GetChild(0).position;
         Vector3 endMovePosition;
@@ -164,23 +167,7 @@ public class Thumbnail2Controller : MonoBehaviour
         if(++_cardSpawnIndex < 26)
             Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f, callBack: () => { SpawnCard(_cardSpawnIndex); });
         else
-            Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f, RotateCards);
-    }
-
-    void RotateCards()
-    {
-        int parent1ChildCount = cardSpawnPoint1.childCount;
-        for (int i = 0; i < parent1ChildCount; i++)
-        {
-            var _childObj = cardSpawnPoint1.GetChild(i);
-            Utilities.Instance.ANIM_RotateObjWithCallback(_childObj, () => { ChangeAssets(_childObj); });
-        }
-    }
-
-    void ChangeAssets(Transform changeObject)
-    {
-        changeObject.GetComponent<Image>().sprite = frontCardSprite;
-        changeObject.GetChild(0).gameObject.SetActive(true);
+            Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f);
     }
 
     void OnCardDragged(GameObject dragObj)
