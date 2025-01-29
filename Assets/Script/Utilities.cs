@@ -157,12 +157,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.onComplete += callback;
     }
 
-    public void ANIM_RotateObjWithCallback(Transform obj, TweenCallback callback = null)
+    public void ANIM_RotateObjWithCallback(Transform obj, TweenCallback callback = null, TweenCallback callbackOnEnd = null)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DORotate(new Vector3(0, 90, 0), 0.35f));
         seq.AppendCallback(callback);
         seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.35f));
+        seq.AppendCallback(callbackOnEnd);
         seq.Play();
     }
 
