@@ -1798,6 +1798,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b825b52000dd11a409b1199330762843, type: 3}
   - {fileID: 8300000, guid: 4c5bd2ca9752dbb4cb02f419afa9f676, type: 3}
   - {fileID: 8300000, guid: f461dd8036369314e86dd9b16a1b1b97, type: 3}
+  wordClips:
+  - {fileID: 8300000, guid: 3efaf52fb0239c54ca4260481f87c727, type: 3}
+  - {fileID: 8300000, guid: cdf18913f0811d344bd7b8bd9d7bbbdc, type: 3}
+  - {fileID: 8300000, guid: 15e4b0ff7f1677a46b7f36fde8a40550, type: 3}
+  - {fileID: 8300000, guid: 5b92ea74cab661d489e3336a3128f468, type: 3}
+  - {fileID: 8300000, guid: 7841d97fa0901234cb764d467251ac99, type: 3}
+  - {fileID: 8300000, guid: 5367fa80ddb4952469a56e554345b250, type: 3}
+  - {fileID: 8300000, guid: 66c3a5c577390684ab68f6cb28983cb1, type: 3}
+  - {fileID: 8300000, guid: 720920f4ebd7c5d45852c4ded20b1b53, type: 3}
   revealObject: {fileID: 5851647043985480734}
   nextBtn: {fileID: 5851647044304103769}
   revealBTN: {fileID: 5851647043538706230}
