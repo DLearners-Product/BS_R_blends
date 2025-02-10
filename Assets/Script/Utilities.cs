@@ -27,12 +27,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Play();
     }
 
-    public void ANIM_ScaleUpDelayScaleDown(Transform obj, float delayTime=0f)
+    public void ANIM_ScaleUpDelayScaleDown(Transform obj, float delayTime=0f, TweenCallback callback=null)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DOScale(Vector3.one * 1.25f, 0.5f));
         seq.AppendInterval(delayTime);
         seq.Append(obj.DOScale(Vector3.one, 0.5f));
+        seq.OnComplete(callback);
         seq.Play();
     }
 

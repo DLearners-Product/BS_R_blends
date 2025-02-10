@@ -56,7 +56,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void UpdateAndResetCounter()
     {
-        Utilities.Instance.ANIM_ShowBounceNormal(TMP_timeCounter.transform.parent.parent);
+        Utilities.Instance.ANIM_ShowBounceNormal(TMP_timeCounter.transform.parent);
         counter = 1f;
         TMP_timeCounter.text = $"{--displayCounter}";
         TMP_timeCounter.transform.parent.GetComponent<Image>().fillAmount = counter;
@@ -164,6 +164,11 @@ public class Thumbnail6Controller : MonoBehaviour
         }
     }
 
+    public void OnQuestionIMGClicked()
+    {
+        AudioManager.PlayAudio(AC_answerClip[_currentIndex]);
+    }
+
     void PlayOptionVO(string selectedObjSTR)
     {
         int i = 0;
@@ -175,7 +180,6 @@ public class Thumbnail6Controller : MonoBehaviour
                 break;
             }
         }
-        Debug.Log($"i :: {i}");
         Invoke(nameof(PlayQuestionVO), AC_optionClip[i].length);
     }
 
@@ -208,6 +212,9 @@ public class Thumbnail6Controller : MonoBehaviour
         spawnedQuestion.GetComponent<Image>().preserveAspect = true;
         spawnedQuestion.GetComponent<RectTransform>().offsetMin = Vector2.zero;
         spawnedQuestion.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+
+        spawnedQuestion.GetComponent<Button>().onClick.AddListener(OnQuestionIMGClicked);
+
         _currentQuestion = spawnedQuestion;
         Utilities.Instance.ANIM_Move(spawnedQuestion.transform, T_startPoint.position, 0f, MoveQuestion);
         // DisableClicking();
@@ -218,7 +225,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void MoveQuestion()
     {
-        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, () => { UpdateQuestionCounter(); EnableClicking(); });
+        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, () => { UpdateQuestionCounter(); EnableClicking(); AudioManager.PlayAudio(AC_answerClip[_currentIndex]); });
     }
 
     void MovePrevQuestion()
