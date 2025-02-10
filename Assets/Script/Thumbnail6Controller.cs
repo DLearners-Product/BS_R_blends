@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,23 +20,29 @@ public class Thumbnail6Controller : MonoBehaviour
     public GameObject G_activityCompleted;
     public AudioSource AS_emptyAudioSource;
     public AudioClip AC_wrongAudioClip;
+    public TextMeshProUGUI TMP_timeCounter;
+    public TextMeshProUGUI TMP_counter;
+    public float F_waitTime;
     GameObject _currentQuestion = null;
     GameObject _prevQuestion = null;
     GameObject _currentSelectedOption = null;
     int _currentIndex = 0;
     bool B_canInteract = false;
+    bool B_counter = true;
+    float counter = 1f;
+    int displayCounter = 10;
 
     void Start()
     {
         OpenOptions();
-        Invoke(nameof(CloseOptions), 3f);
-        Invoke(nameof(SpawnQuestion), 3.5f);
+
+        Invoke(nameof(CloseOptions), F_waitTime);
+        Invoke(nameof(SpawnQuestion), F_waitTime + 1.5f);
+
+        EnableTimeCounter();
     }
 
-    void Update()
-    {
-        
-    }
+    string RemoveTag(string text) { return Regex.Replace(text, "<.*?>", string.Empty); }
 
     void OpenOptions()
     {
@@ -45,6 +52,41 @@ public class Thumbnail6Controller : MonoBehaviour
             Transform _obj = G_optionsParent.transform.GetChild(i);
             OpenOption(_obj);
         }
+    }
+
+    void UpdateAndResetCounter()
+    {
+        Utilities.Instance.ANIM_ShowBounceNormal(TMP_timeCounter.transform.parent.parent);
+        counter = 1f;
+        TMP_timeCounter.text = $"{--displayCounter}";
+        TMP_timeCounter.transform.parent.GetComponent<Image>().fillAmount = counter;
+    }
+
+    private void Update() {
+        if(!B_counter) return;
+
+        if(displayCounter <= 0) { B_counter = false; DisableTimeCounter(); EnableQuestionCounter(); return;}
+
+        if(counter < 0f) { UpdateAndResetCounter(); }
+
+        counter -= Time.deltaTime;
+        TMP_timeCounter.transform.parent.GetComponent<Image>().fillAmount = counter;
+    }
+
+    void EnableTimeCounter() {
+        TMP_timeCounter.text = $"{displayCounter}";
+        TMP_timeCounter.transform.parent.gameObject.SetActive(true);
+    }
+
+    void DisableTimeCounter() { TMP_timeCounter.transform.parent.gameObject.SetActive(false); }
+
+    void EnableQuestionCounter() { 
+        UpdateQuestionCounter();
+        TMP_counter.gameObject.SetActive(true);
+    }
+
+    void UpdateQuestionCounter() {
+        TMP_counter.text = $"{_currentIndex + 1}/{SPR_questionSprite.Length}";
     }
 
     void CloseOptions()
@@ -107,7 +149,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
         OpenOption(selectedObj.transform);
         _currentSelectedOption = selectedObj;
-        var selectedOptText = selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        var selectedOptText = RemoveTag(selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
 
         if(EvaluateAnswer(selectedOptText))
         {
@@ -176,7 +218,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void MoveQuestion()
     {
-        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, EnableClicking);
+        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, () => { UpdateQuestionCounter(); EnableClicking(); });
     }
 
     void MovePrevQuestion()

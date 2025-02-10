@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 public class Thumbnail3Controller : MonoBehaviour
 {
@@ -48,12 +49,18 @@ public class Thumbnail3Controller : MonoBehaviour
         });
 
         var currentContentText = contents[currentContentIndex];
-        string contentText = Regex.Replace(currentContentText, "<.*?>", string.Empty);
-        astroid1Text.text = contentText.Substring(0, 1);
-        astroid2Text.text = contentText.Substring(1, 1);
+        string contentText = RemoveTag(currentContentText);
+
+        int colorCodeStartIndex = currentContentText.IndexOf("color=") + "color=".Length;
+        string colorCode = currentContentText.Substring(colorCodeStartIndex, colorCodeStartIndex);
+
+        astroid1Text.text = $"<color={colorCode}>{contentText.Substring(0, 1)}</color>";
+        astroid2Text.text = $"<color={colorCode}>{contentText.Substring(1, 1)}</color>";
         answerDisplayText.text = currentContentText;
         answerDisplayIMG.sprite = rBlendedImages[currentContentIndex];
     }
+
+    string RemoveTag(string text) { return Regex.Replace(text, "<.*?>", string.Empty); }
 
     public void OnRevealBTNClick()
     {
@@ -68,7 +75,7 @@ public class Thumbnail3Controller : MonoBehaviour
     {
         if(playIndex == 0){
             Utilities.Instance.ScaleObject(astroid1.transform.GetChild(0), duration: 0.5f, callback : () => {
-                AudioClip voClip = GetWordAC(astroid1Text.text);
+                AudioClip voClip = GetWordAC(RemoveTag(astroid1Text.text));
                 AudioManager.PlayAudio(voClip);
                 playIndex++;
                 Invoke(nameof(PlayBlendWords), voClip.length);
@@ -76,7 +83,7 @@ public class Thumbnail3Controller : MonoBehaviour
         }else{
             Utilities.Instance.ScaleObject(astroid1.transform.GetChild(0), scaleSize: 1f, duration: 0.5f);
             Utilities.Instance.ScaleObject(astroid2.transform.GetChild(0), duration: 0.5f, callback : () => {
-                AudioClip voClip = GetWordAC(astroid2Text.text);
+                AudioClip voClip = GetWordAC(RemoveTag(astroid2Text.text));
                 AudioManager.PlayAudio(voClip);
                 Invoke(nameof(ShrinkToNormal), voClip.length);
             });

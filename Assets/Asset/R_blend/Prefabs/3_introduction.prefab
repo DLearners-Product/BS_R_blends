@@ -884,7 +884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5851647044320995029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1764,16 +1764,15 @@ MonoBehaviour:
   astroid2Text: {fileID: 5851647044352297641}
   answerDisplayIMG: {fileID: 5851647044315335004}
   answerDisplayText: {fileID: 5851647044676171034}
-  textObj1: {fileID: 5851647044320995030}
   textObj2: {fileID: 5851647044367631117}
   contents:
-  - <color=red>br</color>ush
-  - <color=red>cr</color>ab
-  - <color=green>dr</color>um
-  - <color=yellow>fr</color>og
-  - <color=green>gr</color>apes
-  - <color=red>tr</color>am
-  - <color=yellow>pr</color>ince
+  - <color=#BD0000>br</color>ush
+  - <color=#FF0029>cr</color>ab
+  - <color=#FFC029>dr</color>um
+  - <color=#C0B700>fr</color>og
+  - <color=#91D14F>gr</color>apes
+  - <color=#002160>tr</color>am
+  - <color=#CE7776>pr</color>ince
   rBlendedImages:
   - {fileID: 21300000, guid: 21eabcb1028a72e47a9d46308fc52a0b, type: 3}
   - {fileID: 21300000, guid: 7cc83191fc20d2041876d770604dc04a, type: 3}
@@ -1781,7 +1780,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 69d32f687026be540a208f20eb812446, type: 3}
   - {fileID: 21300000, guid: 89c40b8b42834414e83225861d5ce79c, type: 3}
   - {fileID: 21300000, guid: 094d4c32544dc564f8f459326ec7eaff, type: 3}
-  - {fileID: 21300000, guid: f89d355aee046ed488490aa86be70a2b, type: 3}
+  - {fileID: 21300000, guid: b5209ebe1895c4148bf99caae199d504, type: 3}
   _blendWordClips:
   - {fileID: 8300000, guid: 9a2c3e45f0156344194855ebdd7757a4, type: 3}
   - {fileID: 8300000, guid: cb451c25725816c42bd213151827d240, type: 3}
