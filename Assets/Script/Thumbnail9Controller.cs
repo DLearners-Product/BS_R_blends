@@ -35,10 +35,12 @@ public class Thumbnail9Controller : MonoBehaviour
         ImageDropSlot.onDropInSlot -= OnObjectDrop;
     }
 
+    string RemoveTag(string text) { return System.Text.RegularExpressions.Regex.Replace(text, "<.*?>", string.Empty); }
+
     void OnObjectDrop(GameObject dropObj, GameObject dropSlotObject)
     {
         string selectedOptionSTR = dropObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-        if(answerSTR[index] == selectedOptionSTR)
+        if(answerSTR[index] == RemoveTag(selectedOptionSTR))
         {
             answerObject.GetComponent<Image>().color = Color.white;
             answerObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = selectedOptionSTR;
