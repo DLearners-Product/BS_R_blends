@@ -26,9 +26,7 @@ public class phonological : MonoBehaviour
         I_count = 0;
         G_Final.SetActive(false);
         _optionsObjs = new Transform[3];
-        _optionsObjs[0] = optText1.transform;
-        _optionsObjs[1] = optText2.transform;
-        _optionsObjs[2] = optText3.transform;
+        ResetToOptionOriginalIndex();
         displayText = "";
 
         displayObjs = new GameObject[5];
@@ -80,15 +78,10 @@ public class phonological : MonoBehaviour
 
     void ResetOptionsPosition()
     {
+        ResetToOptionOriginalIndex();
         Utilities.Instance.ANIM_Move(optText1.transform.parent, position1.position, 0f);
         Utilities.Instance.ANIM_Move(optText2.transform.parent, position2.position, 0f);
         Utilities.Instance.ANIM_Move(optText3.transform.parent, position3.position, 0f, callBack: PopUp);
-        // optText1.transform.parent.Translate(position1.position);
-        // optText2.transform.parent.Translate(position2.position);
-        // optText3.transform.parent.Translate(position3.position);
-        // optText1.transform.position = Vector3.MoveTowards(optText1.transform.position, position1.position, 0f);
-        // optText2.transform.position = Vector3.MoveTowards(optText2.transform.position, position2.position, 0f);
-        // optText3.transform.position = Vector3.MoveTowards(optText3.transform.position, position3.position, 0f);
     }
 
     string GetColorCodedText(string blendedWord)
@@ -118,6 +111,13 @@ public class phonological : MonoBehaviour
         ShiftOptionLeft();
     }
 
+    void ResetToOptionOriginalIndex()
+    {
+        _optionsObjs[0] = optText1.transform;
+        _optionsObjs[1] = optText2.transform;
+        _optionsObjs[2] = optText3.transform;
+    }
+
     void ShiftOptionRight()
     {
         var _temp = _optionsObjs[0];
@@ -137,6 +137,7 @@ public class phonological : MonoBehaviour
     int GetOptionPositionIndex(Transform selectedObj)
     {
         var selectedObjName = selectedObj.name;
+        Debug.Log($"_optionsObjs Length :: {_optionsObjs.Length}");
 
         for (int i = 0; i < _optionsObjs.Length; i++)
         {
@@ -153,6 +154,7 @@ public class phonological : MonoBehaviour
         // Debug.Log($"selectedObj : {selectedObj.name}");
         // Debug.Log($"Selected Object Index : {optionIndex}");
         displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{RemoveTag(displayText).Substring(2)}";
+        Debug.Log($"optionBTNClicked.... optionIndex : {optionIndex}");
 
         if(optionIndex == 0)
         {
