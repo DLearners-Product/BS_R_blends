@@ -31,7 +31,7 @@ public class Thumbnail5Controller : MonoBehaviour
 
         string colorCodedStr = $"<color={colorCode}>{assetName.Substring(0,2)}</color>";
         assetName = colorCodedStr + assetName.Substring(2);
-        Debug.Log(assetName);
+        // Debug.Log(assetName);
         return assetName;
     }
 

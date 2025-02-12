@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 1437495309104957567}
   - component: {fileID: 1437495309104957566}
   m_Layer: 5
-  m_Name: 10story_time 1
+  m_Name: 10story_time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1579,12 +1579,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Brad was a lonely crab. He lived by himself in the sand and every ____
-    he would go out to ____ the ocean water with his ____, Fran. Fran was a ____
-    blue ____ who loved to play the ______! Brad liked Fran's music and one night
-    he even played the ____ with Fran! They played music all night long! After that
-    fun night, Brad was so tried. He stopped at a ____ and ate some ____ before ______
-    back home for bed!
+  m_text: <color=#BD0000>Br</color>ad was a lonely <color=#FF0029>cr</color>ab. He
+    lived by himself in the sand and every ____ he would go out to ____ the ocean
+    water with his ____, <color=#C0B700>Fr</color>an. <color=#C0B700>Fr</color>an
+    was a ____ blue ____ who loved to play the ______! <color=#BD0000>Br</color>ad
+    liked <color=#C0B700>Fr</color>an's music and one night he even played the ____
+    with <color=#C0B700>Fr</color>an! They played music all night long! After that
+    fun night, <color=#BD0000>Br</color>ad was so tired. He stopped at a ____ and
+    ate some ____ before ______ back home for bed!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
   m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,

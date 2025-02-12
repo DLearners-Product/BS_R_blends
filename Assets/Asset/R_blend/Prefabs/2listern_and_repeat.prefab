@@ -1134,6 +1134,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 66c3a5c577390684ab68f6cb28983cb1, type: 3}
   - {fileID: 8300000, guid: 720920f4ebd7c5d45852c4ded20b1b53, type: 3}
   - {fileID: 8300000, guid: 5367fa80ddb4952469a56e554345b250, type: 3}
+  - {fileID: 8300000, guid: c9495786f0f243e4f9469bae45f3caa9, type: 3}
+  - {fileID: 8300000, guid: ccfdda30df934f74bb6c1877674b90f9, type: 3}
+  - {fileID: 8300000, guid: b221f659eea1e6344be23f7c2e9ed02b, type: 3}
+  - {fileID: 8300000, guid: 99b549cfba1235147982dba589c3ef61, type: 3}
+  - {fileID: 8300000, guid: 250e8eebd930dbe46a5c6b058af7b4f4, type: 3}
+  - {fileID: 8300000, guid: 68e12d30622517247b76727b1d015c36, type: 3}
+  - {fileID: 8300000, guid: 80fc0616b7dd8ae44b4da3ff903d192a, type: 3}
+  - {fileID: 8300000, guid: 6b790813cc72da44883257e2686105db, type: 3}
+  - {fileID: 8300000, guid: c723b9e3d1c343b49a35b7a5e9c198c0, type: 3}
+  - {fileID: 8300000, guid: 1e4f94199d2bca14d8ebf4446b35db74, type: 3}
+  - {fileID: 8300000, guid: 5bc6bea513aba1047acea04abaec9cdd, type: 3}
+  - {fileID: 8300000, guid: f43f849048b5a78479cdf62432416cd8, type: 3}
   rotateSpeed: 5
   minAngle: -40
   maxAngle: 40

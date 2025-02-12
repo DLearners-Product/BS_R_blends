@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=#91D14F>gr</color>
+  m_text: <color=#477016>gr</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
   m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
@@ -1429,14 +1429,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 76ccd263f2e255543810e59238398225, type: 3}
   - {fileID: 21300000, guid: c3b5d66cf063abf4ba0fe1b90485eb8e, type: 3}
   - {fileID: 21300000, guid: 779df8ed1bd087d488a7546f80898446, type: 3}
-  - {fileID: 21300000, guid: 00d454146cdfcd644b6ee215e906e12a, type: 3}
+  - {fileID: 21300000, guid: b5209ebe1895c4148bf99caae199d504, type: 3}
   - {fileID: 21300000, guid: bcc6bb438c3d1d844bffe499956bd520, type: 3}
   - {fileID: 21300000, guid: 950fc4896cd71d443908e75457ed51b6, type: 3}
   AC_answerClip:
   - {fileID: 8300000, guid: 2fc2058684cd6674ab1152384e157d80, type: 3}
   - {fileID: 8300000, guid: cb5d412761d73f146b84b102b7f45571, type: 3}
   - {fileID: 8300000, guid: 61debe936fad82448947b6ddb118ce19, type: 3}
-  - {fileID: 8300000, guid: 316c9f81e063abf48a2c6477ad9abb52, type: 3}
+  - {fileID: 8300000, guid: f461dd8036369314e86dd9b16a1b1b97, type: 3}
   - {fileID: 8300000, guid: 514e46c63274e3e47ba05bc1dfe9532e, type: 3}
   - {fileID: 8300000, guid: b3ef6d71d8c236142823b2ee68a077bc, type: 3}
   AC_optionClip:

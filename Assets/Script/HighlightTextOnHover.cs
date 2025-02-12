@@ -34,7 +34,7 @@ public class HighlightTextOnHover : MonoBehaviour, IPointerEnterHandler, IPointe
         if(!pointerEntered) return;
 
         var wordIndex = TMP_TextUtilities.FindIntersectingWord(_text, Input.mousePosition, mainCam);
-        Debug.Log($"{wordIndex} :: {mainCam}");
+        // Debug.Log($"{wordIndex} :: {mainCam}");
 
         if (wordIndex != -1)
         {

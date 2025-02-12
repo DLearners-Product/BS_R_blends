@@ -141,6 +141,11 @@ public class Thumbnail3Controller : MonoBehaviour
         nextBtn.interactable = false;
     }
 
+    public void OnAnswerClick()
+    {
+        AudioManager.PlayAudio(_contentClips[currentContentIndex]);
+    }
+
     void ChangeContent()
     {
         currentContentIndex++;

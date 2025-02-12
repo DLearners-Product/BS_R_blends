@@ -217,6 +217,7 @@ public class Thumbnail2Controller : MonoBehaviour
     {
         foreach (var clip in alphabetClips)
         {
+            Debug.Log(clip.name);
             if(clip.name.Contains(alphabetChar)) { AudioManager.PlayAudio(clip); return; }
         }
     }

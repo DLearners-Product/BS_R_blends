@@ -69,11 +69,12 @@ public class phonological : MonoBehaviour
     {
         PopDown();
         displayText = blendWordsData[currentIndex].content;
+        // displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{RemoveTag(displayText).Substring(2)}";
         questionText.text = blendWordsData[currentIndex].content.Substring(2);
-        answerText.text = displayText;
         optText1.text = GetColorCodedText(blendWordsData[currentIndex].options[0]);
         optText2.text = GetColorCodedText(blendWordsData[currentIndex].options[1]);
         optText3.text = GetColorCodedText(blendWordsData[currentIndex].content.Substring(0, 2));
+        answerText.text = $"{optText3.text}{displayText.Substring(2)}";
     }
 
     void ResetOptionsPosition()
@@ -151,10 +152,7 @@ public class phonological : MonoBehaviour
     {
         GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
         int optionIndex = GetOptionPositionIndex(selectedObj.transform);
-        // Debug.Log($"selectedObj : {selectedObj.name}");
-        // Debug.Log($"Selected Object Index : {optionIndex}");
         displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{RemoveTag(displayText).Substring(2)}";
-        Debug.Log($"optionBTNClicked.... optionIndex : {optionIndex}");
 
         if(optionIndex == 0)
         {
