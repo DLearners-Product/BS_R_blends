@@ -178,7 +178,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1747,13 +1747,13 @@ MonoBehaviour:
   nxtBtn: {fileID: 8688896185097083961}
   activityCompleted: {fileID: 2316178576773332546}
   blendWords:
-  - br
-  - cr
-  - dr
-  - fr
-  - gr
-  - tr
-  - pr
+  - <color=#BD0000>br</color>
+  - <color=#FF0029>cr</color>
+  - <color=#FFC029>dr</color>
+  - <color=#C0B700>fr</color>
+  - <color=#477016>gr</color>
+  - <color=#002160>tr</color>
+  - <color=#CE7776>pr</color>
   blendSprites:
   - {fileID: 21300000, guid: 118003748ff8ab84e901d2d352b135b1, type: 3}
   - {fileID: 21300000, guid: fa332deb9571dad4ead1946290595eff, type: 3}

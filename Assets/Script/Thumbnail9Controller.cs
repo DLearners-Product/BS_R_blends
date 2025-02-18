@@ -14,6 +14,7 @@ public class Thumbnail9Controller : MonoBehaviour
     public GameObject[] optionObjects;
     public AudioClip[] optionAudioClips;
     public AudioClip wrongAudioClip;
+    public TextMeshProUGUI questionCounter;
     public GameObject activityCompleted;
     int index = 0;
     Color initialColor;
@@ -25,6 +26,7 @@ public class Thumbnail9Controller : MonoBehaviour
         activityCompleted.SetActive(false);
         ShrinkOptionObjects();
         SpawnOptions();
+        UpdateCounter();
     }
 
     void OnEnable() {
@@ -35,10 +37,12 @@ public class Thumbnail9Controller : MonoBehaviour
         ImageDropSlot.onDropInSlot -= OnObjectDrop;
     }
 
+    string RemoveTag(string text) { return System.Text.RegularExpressions.Regex.Replace(text, "<.*?>", string.Empty); }
+
     void OnObjectDrop(GameObject dropObj, GameObject dropSlotObject)
     {
         string selectedOptionSTR = dropObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-        if(answerSTR[index] == selectedOptionSTR)
+        if(answerSTR[index] == RemoveTag(selectedOptionSTR))
         {
             answerObject.GetComponent<Image>().color = Color.white;
             answerObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = selectedOptionSTR;
@@ -83,7 +87,7 @@ public class Thumbnail9Controller : MonoBehaviour
     {
         Vector3 endPos = answerObject.transform.position + _position;
         if(canMove)
-            Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: () => { MoveQuestionPanel(Vector3.up * 4f); });
+            Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: () => { MoveQuestionPanel(Vector3.up * 6f); });
         else
             Utilities.Instance.ANIM_Move(answerObject.transform, endPos, callBack: OnSpeakerBTNClicked);
     }
@@ -93,7 +97,13 @@ public class Thumbnail9Controller : MonoBehaviour
         Vector3 endPos = questionParentObject.transform.position + _position;
         Utilities.Instance.ANIM_MoveAndReturnToOriginalPos(questionParentObject.transform, endPos, ChangeQuestion, () => {
             MoveAnswerPanel(Vector3.down * 3f, false);
+            UpdateCounter();
         });
+    }
+
+    void UpdateCounter()
+    {
+        questionCounter.text = $"{index + 1}/{questionSTR.Length}";
     }
 
     void ShrinkOptionObjects()

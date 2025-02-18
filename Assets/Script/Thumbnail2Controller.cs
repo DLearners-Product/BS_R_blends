@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Thumbnail2Controller : MonoBehaviour
 {
     public GameObject[] rainbowPoints;
     public GameObject[] clouds;
+    public AudioClip[] alphabetClips;
     public float rotateSpeed = 0f;
     public float minAngle, maxAngle;
     public GameObject environmentObj;
@@ -38,7 +40,7 @@ public class Thumbnail2Controller : MonoBehaviour
     public AudioClip[] vowelsWordClips;
     public Transform mainCardObject;
     List<string> vowelsChar = new List<string>(){"a", "e", "i", "o", "u"};
-    int A_ASCIIVal = 65;
+    int A_ASCIIVal = 97;
     Sprite displaySprite;
     AudioClip currentVowelAudioClip;
 
@@ -61,13 +63,13 @@ public class Thumbnail2Controller : MonoBehaviour
     }
 
     private void OnEnable() {
-        ImageDragandDrop.onDrag += OnCardDragged;
-        ImageDropSlot.onDropInSlot += OnCardDrop;
+        // ImageDragandDrop.onDrag += OnCardDragged;
+        // ImageDropSlot.onDropInSlot += OnCardDrop;
     }
 
     private void OnDisable() {
-        ImageDragandDrop.onDrag -= OnCardDragged;
-        ImageDropSlot.onDropInSlot -= OnCardDrop;
+        // ImageDragandDrop.onDrag -= OnCardDragged;
+        // ImageDropSlot.onDropInSlot -= OnCardDrop;
     }
 
     void InstantiateCloud()
@@ -98,12 +100,10 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void EnableRainBow()
     {
-        // rainbowObject.GetComponent<Image>().enabled = false;
         var rainbowColor = rainbowObject.GetComponent<Image>().color;
-        // rainbowObject.GetComponent<Image>().color = new Color(rainbowColor.r, rainbowColor.g, rainbowColor.b, 0);
-        // rainbowObject.GetComponent<Image>().enabled = true;
         rainbowObject.SetActive(true);
-        MakeRainBow();
+        Utilities.Instance.ANIM_ImageFill(rainbowObject.GetComponent<Image>(), 3f, PopAlphabetObjects);
+        rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     void ResetRainbowLetterMaterial()
@@ -112,13 +112,6 @@ public class Thumbnail2Controller : MonoBehaviour
         {
             rainbowPoints[i].GetComponent<TextMeshProUGUI>().fontMaterial = normalMaterial;
         }
-    }
-
-    void MakeRainBow()
-    {
-        Utilities.Instance.ANIM_ImageFill(rainbowObject.GetComponent<Image>(), 3f, PopAlphabetObjects);
-        rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
-        // PopAlphabetObjects();
     }
 
     void PopAlphabetObjects()
@@ -136,85 +129,72 @@ public class Thumbnail2Controller : MonoBehaviour
     void EnableCard()
     {
         cardParent.SetActive(true);
-        Utilities.Instance.ANIM_ShowBounceNormal(cardParent.transform.GetChild(0), callback: () => { SpawnCard(); });
+        Utilities.Instance.ANIM_ShowBounceNormal(cardParent.transform.GetChild(0));
     }
 
-    void SpawnCard(int cardSpawnIndex = 0)
+    // void SpawnCard(int cardSpawnIndex = 0)
+    // {
+    //     var _cardSpawnIndex = cardSpawnIndex;
+    //     var spawnedCard = Instantiate(cardPrefab, cardSpawnPoint1);
+
+    //     spawnedCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((char)(A_ASCIIVal + cardSpawnIndex)).ToString();
+    //     spawnedCard.transform.GetChild(0).gameObject.SetActive(true);
+    //     spawnedCard.transform.GetComponent<Image>().sprite = frontCardSprite;
+
+    //     spawnedCard.transform.position = cardParent.transform.GetChild(0).position;
+    //     Vector3 endMovePosition;
+
+    //     if(_cardSpawnIndex < 14)
+    //     {
+    //         endMovePosition = new Vector3(
+    //                                     cardSpawn1StartPosition.position.x + (cardSpawnIndex * 1.2f), 
+    //                                     cardSpawn1StartPosition.position.y,
+    //                                     cardSpawn1StartPosition.position.z);
+    //     }else{
+    //         endMovePosition = new Vector3(
+    //                                     cardSpawn2StartPosition.position.x + ((cardSpawnIndex - 14) * 1.2f), 
+    //                                     cardSpawn2StartPosition.position.y,
+    //                                     cardSpawn2StartPosition.position.z);
+    //     }
+
+    //     if(++_cardSpawnIndex < 26)
+    //         Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f, callBack: () => { SpawnCard(_cardSpawnIndex); });
+    //     else
+    //         Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f);
+    // }
+
+    // void OnCardDragged(GameObject dragObj)
+    // {
+    //     List<float> distance = new List<float>();
+    //     ResetRainbowLetterMaterial();
+    //     for (int i = 0; i < rainbowPoints.Length; i++)
+    //     {
+    //         distance.Add(Vector3.Distance(rainbowPoints[i].transform.position, dragObj.transform.position));
+    //     }
+
+    //     List<float> _distance = new List<float>(distance);
+    //     _distance.Sort();
+    //     int nearObjectIndex = distance.IndexOf(_distance[0]);
+
+    //     Vector3 lookDir = (rainbowPoints[nearObjectIndex].transform.position - dragObj.transform.position).normalized;
+
+    //     rainbowPoints[nearObjectIndex].GetComponent<TextMeshProUGUI>().fontMaterial = glowMaterial;
+
+    //     float angle = (Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg) - 90f;
+
+    //     angle = Mathf.Clamp(angle, minAngle, maxAngle);
+
+    //     Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+
+    //     dragObj.transform.rotation = Quaternion.Slerp(dragObj.transform.rotation, targetRotation, rotateSpeed);
+    // }
+
+    public void OnAlphabetsClicked()
     {
-        var _cardSpawnIndex = cardSpawnIndex;
-        var spawnedCard = Instantiate(cardPrefab, cardSpawnPoint1);
-        spawnedCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = ((char)(A_ASCIIVal + cardSpawnIndex)).ToString();
+        var clickedObj = EventSystem.current.currentSelectedGameObject;
+        string selectedLetter = clickedObj.GetComponent<TextMeshProUGUI>().text;
 
-        spawnedCard.transform.position = cardParent.transform.GetChild(0).position;
-        Vector3 endMovePosition;
-
-        if(_cardSpawnIndex < 14)
-        {
-            endMovePosition = new Vector3(
-                                        cardSpawn1StartPosition.position.x + (cardSpawnIndex * 1.2f), 
-                                        cardSpawn1StartPosition.position.y,
-                                        cardSpawn1StartPosition.position.z);
-        }else{
-            endMovePosition = new Vector3(
-                                        cardSpawn2StartPosition.position.x + ((cardSpawnIndex - 14) * 1.2f), 
-                                        cardSpawn2StartPosition.position.y,
-                                        cardSpawn2StartPosition.position.z);
-        }
-
-        if(++_cardSpawnIndex < 26)
-            Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f, callBack: () => { SpawnCard(_cardSpawnIndex); });
-        else
-            Utilities.Instance.ANIM_Move(spawnedCard.transform, endMovePosition, 0.15f, RotateCards);
-    }
-
-    void RotateCards()
-    {
-        int parent1ChildCount = cardSpawnPoint1.childCount;
-        for (int i = 0; i < parent1ChildCount; i++)
-        {
-            var _childObj = cardSpawnPoint1.GetChild(i);
-            Utilities.Instance.ANIM_RotateObjWithCallback(_childObj, () => { ChangeAssets(_childObj); });
-        }
-    }
-
-    void ChangeAssets(Transform changeObject)
-    {
-        changeObject.GetComponent<Image>().sprite = frontCardSprite;
-        changeObject.GetChild(0).gameObject.SetActive(true);
-    }
-
-    void OnCardDragged(GameObject dragObj)
-    {
-        List<float> distance = new List<float>();
-        ResetRainbowLetterMaterial();
-        for (int i = 0; i < rainbowPoints.Length; i++)
-        {
-            distance.Add(Vector3.Distance(rainbowPoints[i].transform.position, dragObj.transform.position));
-        }
-
-        List<float> _distance = new List<float>(distance);
-        _distance.Sort();
-        int nearObjectIndex = distance.IndexOf(_distance[0]);
-
-        Vector3 lookDir = (rainbowPoints[nearObjectIndex].transform.position - dragObj.transform.position).normalized;
-
-        rainbowPoints[nearObjectIndex].GetComponent<TextMeshProUGUI>().fontMaterial = glowMaterial;
-
-        float angle = (Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg) - 90f;
-
-        angle = Mathf.Clamp(angle, minAngle, maxAngle);
-
-        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-
-        dragObj.transform.rotation = Quaternion.Slerp(dragObj.transform.rotation, targetRotation, rotateSpeed);
-    }
-
-    void OnCardDrop(GameObject droppedObj, GameObject dropSlotObject)
-    {
-        var selectedLetter = droppedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-        ResetRainbowLetterMaterial();
-
-        Destroy(droppedObj);
+        // ResetRainbowLetterMaterial();
 
         foreach (var alphabet in rainbowPoints)
         {
@@ -225,9 +205,20 @@ public class Thumbnail2Controller : MonoBehaviour
                     selectedVowelsCount++;
                     GetSelectedVowelAssets(selectedLetter.ToLower());
                     DisplayPicInMainCard(displaySprite);
+                    return;
                 }
-                alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
+                // alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
             }
+        }
+        PlayAlphabetSound(selectedLetter);
+    }
+
+    void PlayAlphabetSound(string alphabetChar)
+    {
+        foreach (var clip in alphabetClips)
+        {
+            Debug.Log(clip.name);
+            if(clip.name.Contains(alphabetChar)) { AudioManager.PlayAudio(clip); return; }
         }
     }
 

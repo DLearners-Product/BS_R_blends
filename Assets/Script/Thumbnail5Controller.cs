@@ -24,9 +24,21 @@ public class Thumbnail5Controller : MonoBehaviour
         // Invoke(nameof(ShowNextFrame), 2f);
     }
 
-    void Update()
+    string GetColorCodedText(int assetIndex)
     {
-        
+        string assetName = blendSprites[assetIndex].name;
+        string colorCode = GetColorCode();
+
+        string colorCodedStr = $"<color={colorCode}>{assetName.Substring(0,2)}</color>";
+        assetName = colorCodedStr + assetName.Substring(2);
+        // Debug.Log(assetName);
+        return assetName;
+    }
+
+    string GetColorCode()
+    {
+        int colorCodeStartIndex = blendWords[currentIndex].IndexOf("color=") + "color=".Length;
+        return blendWords[currentIndex].Substring(colorCodeStartIndex, colorCodeStartIndex);
     }
 
     void ChangeContent()
@@ -35,12 +47,12 @@ public class Thumbnail5Controller : MonoBehaviour
         frame1.GetComponent<Image>().sprite = blendSprites[currentIndex * 2];
         frame1.GetComponent<Image>().preserveAspect = true;
         frame1.GetComponent<AudioSource>().clip = blendImageVOs[currentIndex * 2];
-        frame1Text.text = blendSprites[currentIndex * 2].name;
+        frame1Text.text = GetColorCodedText(currentIndex * 2);
 
         frame2.GetComponent<Image>().sprite = blendSprites[(currentIndex * 2) + 1];
         frame2.GetComponent<Image>().preserveAspect = true;
         frame2.GetComponent<AudioSource>().clip = blendImageVOs[(currentIndex * 2) + 1];
-        frame2Text.text = blendSprites[(currentIndex * 2) + 1].name;
+        frame2Text.text = GetColorCodedText((currentIndex * 2) + 1);
         currentIndex++;
     }
 

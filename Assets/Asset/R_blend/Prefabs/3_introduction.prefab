@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 5851647043544176781}
   - component: {fileID: 5851647043544176783}
   - component: {fileID: 5851647043544176782}
+  - component: {fileID: 401578392}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -222,6 +223,60 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &401578392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5851647043544176780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 5851647043544176782}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5851647045232845354}
+        m_MethodName: OnAnswerClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5851647043685983418
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +844,7 @@ GameObject:
   - component: {fileID: 5851647044315335005}
   - component: {fileID: 5851647044315335004}
   - component: {fileID: 5851647044315335006}
+  - component: {fileID: 7193263644866020181}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -867,6 +923,60 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &7193263644866020181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5851647044315335002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 5851647044315335004}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5851647045232845354}
+        m_MethodName: OnAnswerClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5851647044320995028
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5851647044320995029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1591,7 +1701,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1764,16 +1874,15 @@ MonoBehaviour:
   astroid2Text: {fileID: 5851647044352297641}
   answerDisplayIMG: {fileID: 5851647044315335004}
   answerDisplayText: {fileID: 5851647044676171034}
-  textObj1: {fileID: 5851647044320995030}
   textObj2: {fileID: 5851647044367631117}
   contents:
-  - <color=red>br</color>ush
-  - <color=red>cr</color>ab
-  - <color=green>dr</color>um
-  - <color=yellow>fr</color>og
-  - <color=green>gr</color>apes
-  - <color=red>tr</color>am
-  - <color=yellow>pr</color>ince
+  - <color=#BD0000>br</color>ush
+  - <color=#FF0029>cr</color>ab
+  - <color=#FFC029>dr</color>um
+  - <color=#C0B700>fr</color>og
+  - <color=#477016>gr</color>apes
+  - <color=#002160>tr</color>am
+  - <color=#CE7776>pr</color>ince
   rBlendedImages:
   - {fileID: 21300000, guid: 21eabcb1028a72e47a9d46308fc52a0b, type: 3}
   - {fileID: 21300000, guid: 7cc83191fc20d2041876d770604dc04a, type: 3}
@@ -1781,7 +1890,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 69d32f687026be540a208f20eb812446, type: 3}
   - {fileID: 21300000, guid: 89c40b8b42834414e83225861d5ce79c, type: 3}
   - {fileID: 21300000, guid: 094d4c32544dc564f8f459326ec7eaff, type: 3}
-  - {fileID: 21300000, guid: f89d355aee046ed488490aa86be70a2b, type: 3}
+  - {fileID: 21300000, guid: b5209ebe1895c4148bf99caae199d504, type: 3}
   _blendWordClips:
   - {fileID: 8300000, guid: 9a2c3e45f0156344194855ebdd7757a4, type: 3}
   - {fileID: 8300000, guid: cb451c25725816c42bd213151827d240, type: 3}
@@ -1798,6 +1907,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b825b52000dd11a409b1199330762843, type: 3}
   - {fileID: 8300000, guid: 4c5bd2ca9752dbb4cb02f419afa9f676, type: 3}
   - {fileID: 8300000, guid: f461dd8036369314e86dd9b16a1b1b97, type: 3}
+  wordClips:
+  - {fileID: 8300000, guid: 3efaf52fb0239c54ca4260481f87c727, type: 3}
+  - {fileID: 8300000, guid: cdf18913f0811d344bd7b8bd9d7bbbdc, type: 3}
+  - {fileID: 8300000, guid: 15e4b0ff7f1677a46b7f36fde8a40550, type: 3}
+  - {fileID: 8300000, guid: 5b92ea74cab661d489e3336a3128f468, type: 3}
+  - {fileID: 8300000, guid: 7841d97fa0901234cb764d467251ac99, type: 3}
+  - {fileID: 8300000, guid: 5367fa80ddb4952469a56e554345b250, type: 3}
+  - {fileID: 8300000, guid: 66c3a5c577390684ab68f6cb28983cb1, type: 3}
+  - {fileID: 8300000, guid: 720920f4ebd7c5d45852c4ded20b1b53, type: 3}
   revealObject: {fileID: 5851647043985480734}
   nextBtn: {fileID: 5851647044304103769}
   revealBTN: {fileID: 5851647043538706230}

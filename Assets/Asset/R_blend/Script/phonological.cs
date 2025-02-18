@@ -11,6 +11,7 @@ public class phonological : MonoBehaviour
     public AudioSource AS_Wrong;
     public GameObject G_Final;
     public PhonologicalContent[] blendWordsData;
+    public string[] colorCodedBlendWords;
     public TextMeshProUGUI questionText, answerText;
     public TextMeshProUGUI optText1, optText2, optText3;
     public Transform position1, position2, position3;
@@ -25,9 +26,7 @@ public class phonological : MonoBehaviour
         I_count = 0;
         G_Final.SetActive(false);
         _optionsObjs = new Transform[3];
-        _optionsObjs[0] = optText1.transform;
-        _optionsObjs[1] = optText2.transform;
-        _optionsObjs[2] = optText3.transform;
+        ResetToOptionOriginalIndex();
         displayText = "";
 
         displayObjs = new GameObject[5];
@@ -46,7 +45,7 @@ public class phonological : MonoBehaviour
         foreach (var item in displayObjs)
         {
             if(++i == (displayObjs.Length - 1))
-                Utilities.Instance.ANIM_ShrinkObject(item.transform, callback: PopUp);
+                Utilities.Instance.ANIM_ShrinkObject(item.transform, callback: ResetOptionsPosition);
             else
                 Utilities.Instance.ANIM_ShrinkObject(item.transform);
         }
@@ -63,19 +62,39 @@ public class phonological : MonoBehaviour
         {
             Utilities.Instance.ANIM_ShowBounceNormal(displayObjs[i].transform);
         }
-        Utilities.Instance.ANIM_ShowBounceNormal(displayObjs[i].transform, callback : OnSpeakerBTNClick);
+        Utilities.Instance.ANIM_ShowBounceNormal(displayObjs[i].transform, callback : PlayDisplayTextVO);
     }
 
     void SpawnQuestion()
     {
         PopDown();
         displayText = blendWordsData[currentIndex].content;
+        // displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{RemoveTag(displayText).Substring(2)}";
         questionText.text = blendWordsData[currentIndex].content.Substring(2);
-        answerText.text = displayText;
-        optText1.text = blendWordsData[currentIndex].options[0];
-        optText2.text = blendWordsData[currentIndex].options[1];
-        optText3.text = blendWordsData[currentIndex].content.Substring(0, 2);
+        optText1.text = GetColorCodedText(blendWordsData[currentIndex].options[0]);
+        optText2.text = GetColorCodedText(blendWordsData[currentIndex].options[1]);
+        optText3.text = GetColorCodedText(blendWordsData[currentIndex].content.Substring(0, 2));
+        answerText.text = $"{optText3.text}{displayText.Substring(2)}";
     }
+
+    void ResetOptionsPosition()
+    {
+        ResetToOptionOriginalIndex();
+        Utilities.Instance.ANIM_Move(optText1.transform.parent, position1.position, 0f);
+        Utilities.Instance.ANIM_Move(optText2.transform.parent, position2.position, 0f);
+        Utilities.Instance.ANIM_Move(optText3.transform.parent, position3.position, 0f, callBack: PopUp);
+    }
+
+    string GetColorCodedText(string blendedWord)
+    {
+        foreach (var text in colorCodedBlendWords)
+        {
+            if(RemoveTag(text) == blendedWord) return text;
+        }
+        return "";
+    }
+
+    string RemoveTag(string text) { return System.Text.RegularExpressions.Regex.Replace(text, "<.*?>", string.Empty); }
 
     void ShiftOptionObjectRight()
     {
@@ -91,6 +110,13 @@ public class phonological : MonoBehaviour
         Utilities.Instance.ANIM_Move(_optionsObjs[1].parent, position1.position);
         Utilities.Instance.ANIM_Move(_optionsObjs[0].parent, position3.position, callBack: RefreshDisplayText);
         ShiftOptionLeft();
+    }
+
+    void ResetToOptionOriginalIndex()
+    {
+        _optionsObjs[0] = optText1.transform;
+        _optionsObjs[1] = optText2.transform;
+        _optionsObjs[2] = optText3.transform;
     }
 
     void ShiftOptionRight()
@@ -112,6 +138,7 @@ public class phonological : MonoBehaviour
     int GetOptionPositionIndex(Transform selectedObj)
     {
         var selectedObjName = selectedObj.name;
+        Debug.Log($"_optionsObjs Length :: {_optionsObjs.Length}");
 
         for (int i = 0; i < _optionsObjs.Length; i++)
         {
@@ -125,9 +152,7 @@ public class phonological : MonoBehaviour
     {
         GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
         int optionIndex = GetOptionPositionIndex(selectedObj.transform);
-        // Debug.Log($"selectedObj : {selectedObj.name}");
-        // Debug.Log($"Selected Object Index : {optionIndex}");
-        displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{displayText.Substring(2)}";
+        displayText = $"{selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}{RemoveTag(displayText).Substring(2)}";
 
         if(optionIndex == 0)
         {
@@ -139,11 +164,17 @@ public class phonological : MonoBehaviour
 
     public void OnSpeakerBTNClick()
     {
+        PlayDisplayTextVO();
+    }
+
+    void PlayDisplayTextVO()
+    {
         foreach (var audioClip in textAudioClips)
         {
-            if(audioClip.name.Contains(displayText))
+            if(audioClip.name.Contains(RemoveTag(displayText)))
             {
                 AudioManager.PlayAudio(audioClip);
+                break;
             }
         }
     }
@@ -161,6 +192,7 @@ public class phonological : MonoBehaviour
     {
         Utilities.Instance.ANIM_ScaleUpDelayScaleDown(answerText.transform.parent);
         answerText.text = displayText;
+        PlayDisplayTextVO();
     }
 }
 

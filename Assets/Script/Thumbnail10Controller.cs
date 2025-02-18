@@ -13,7 +13,9 @@ public class Thumbnail10Controller : MonoBehaviour
     public Transform optionsParent;
     public GameObject activityCompleted;
     public string[] optionText;
+    public AudioClip[] optionClips;
     public Transform[] placementPositions;
+    public AudioClip passageAudioClip, wrongOptionSFX;
     int attendedAnswer;
 
     void Start()
@@ -37,22 +39,37 @@ public class Thumbnail10Controller : MonoBehaviour
         string dropSlotText = dropSlotObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
         dropSlotText = Regex.Replace(dropSlotText, "<.*?>", string.Empty); 
 
-        if(droppedObjText.ToLower().Trim().Equals(dropSlotText.ToLower().Trim()))
-        {
-            attendedAnswer++;
-            Destroy(dropedObj);
-            dropSlotObject.transform.GetChild(0).gameObject.SetActive(true);
-            Utilities.Instance.ANIM_CorrectScaleEffect(dropSlotObject.transform.GetChild(0));
-        }
+        if(!droppedObjText.ToLower().Trim().Equals(dropSlotText.ToLower().Trim())) return;
+
+        attendedAnswer++;
+        Destroy(dropedObj);
+        dropSlotObject.transform.GetChild(0).gameObject.SetActive(true);
+        Utilities.Instance.ANIM_CorrectScaleEffect(dropSlotObject.transform.GetChild(0));
+        var optionClip = GetOptionClip(dropSlotText);
+        AudioManager.PlayAudio(optionClip);
 
         if(attendedAnswer == optionText.Length)
         {
-            StartCoroutine(WaitAndExecute(1f, () => {
-                activityCompleted.SetActive(true);
+            StartCoroutine(WaitAndExecute(optionClip.length + 1f, ()=>{
+                AudioManager.PlayAudio(passageAudioClip);
+                StartCoroutine(WaitAndExecute(passageAudioClip.length + 1f, EnableActivityCompleted));
             }));
         }
+    }
 
-        Debug.Log($"Dropped object Text :: {droppedObjText} Drop Slot Text :: {dropSlotText}");
+    void EnableActivityCompleted() {
+        activityCompleted.SetActive(true);
+    }
+
+    AudioClip GetOptionClip(string optionSTR)
+    {
+        foreach (var optionClip in optionClips)
+        {
+            if(optionClip.name.ToLower().Contains(optionSTR.ToLower())) {
+                return optionClip;
+            }
+        }
+        return null;
     }
 
     IEnumerator WaitAndExecute(float waitTime, Action _func)

@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 1437495309104957567}
   - component: {fileID: 1437495309104957566}
   m_Layer: 5
-  m_Name: 10story_time 1
+  m_Name: 10story_time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,6 +348,17 @@ MonoBehaviour:
   - drums
   - crawling
   - friend
+  optionClips:
+  - {fileID: 8300000, guid: afe80c092309e4548b45dd49e80bcff0, type: 3}
+  - {fileID: 8300000, guid: 82546e69700a25d46b1e1f0abb1e077d, type: 3}
+  - {fileID: 8300000, guid: baff6c9f709990746a05fda2cca384cb, type: 3}
+  - {fileID: 8300000, guid: 45ce50c9f90d47640a56866f645a63ba, type: 3}
+  - {fileID: 8300000, guid: 74e445509c669184989bb34d558a56fd, type: 3}
+  - {fileID: 8300000, guid: c698a15812dd3e148b45666126ca6927, type: 3}
+  - {fileID: 8300000, guid: 2f6c2262c851c604aa97743350f78a3e, type: 3}
+  - {fileID: 8300000, guid: e5c4c35db409c8c4a83310bacbe1cd55, type: 3}
+  - {fileID: 8300000, guid: 1c25a500a6b144c48b25bb482e725ab4, type: 3}
+  - {fileID: 8300000, guid: 3c5ba9d9091b9024ea05e8d5cd59a9b3, type: 3}
   placementPositions:
   - {fileID: 1437495309364566898}
   - {fileID: 1437495309029784266}
@@ -359,6 +370,8 @@ MonoBehaviour:
   - {fileID: 1437495309190314730}
   - {fileID: 1437495310149343185}
   - {fileID: 1437495309260478039}
+  passageAudioClip: {fileID: 8300000, guid: 835db165a9bba2546a7b7e7777f31684, type: 3}
+  wrongOptionSFX: {fileID: 8300000, guid: 14d2019f0fe09d74587e4f6129a2ddd6, type: 3}
 --- !u!1 &1437495309190314731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,12 +1592,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Brad was a lonely crab. He lived by himself in the sand and every ____
-    he would go out to ____ the ocean water with his ____, Fran. Fran was a ____
-    blue ____ who loved to play the ______! Brad liked Fran's music and one night
-    he even played the ____ with Fran! They played music all night long! After that
-    fun night, Brad was so tried. He stopped at a ____ and ate some ____ before ______
-    back home for bed!
+  m_text: <color=#BD0000>Br</color>ad was a lonely <color=#FF0029>cr</color>ab. He
+    lived by himself in the sand and every ____ he would go out to ____ the ocean
+    water with his ____, <color=#C0B700>Fr</color>an. <color=#C0B700>Fr</color>an
+    was a ____ blue ____ who loved to play the ______! <color=#BD0000>Br</color>ad
+    liked <color=#C0B700>Fr</color>an's music and one night he even played the ____
+    with <color=#C0B700>Fr</color>an! They played music all night long! After that
+    fun night, <color=#BD0000>Br</color>ad was so tired. He stopped at a ____ and
+    ate some ____ before ______ back home for bed!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
   m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,

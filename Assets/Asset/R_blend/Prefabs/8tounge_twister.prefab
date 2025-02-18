@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3631150029610825613}
   - component: {fileID: 1486715825917845757}
   - component: {fileID: 4377555110267379047}
+  - component: {fileID: 193660707}
   m_Layer: 5
   m_Name: Speaker (2)
   m_TagString: Untagged
@@ -131,6 +132,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &193660707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365230931961342972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2514149207458353191
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +159,7 @@ GameObject:
   - component: {fileID: 6026861679044880184}
   - component: {fileID: 3991330309904676678}
   - component: {fileID: 6468733430438619503}
+  - component: {fileID: 115067720}
   m_Layer: 5
   m_Name: Speaker
   m_TagString: Untagged
@@ -254,13 +271,29 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 8300000, guid: d8527423b1aead34e8ba57918bca7da1,
+            type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &115067720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2514149207458353191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2946714049156990465
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +306,7 @@ GameObject:
   - component: {fileID: 1393785394818245579}
   - component: {fileID: 2629991893610404754}
   - component: {fileID: 5401025061574325123}
+  - component: {fileID: 1616377324}
   m_Layer: 5
   m_Name: Speaker
   m_TagString: Untagged
@@ -392,6 +426,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1616377324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946714049156990465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4116967705598444051
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +453,7 @@ GameObject:
   - component: {fileID: 8301702734663886088}
   - component: {fileID: 6169788982294483825}
   - component: {fileID: 3149995145370749054}
+  - component: {fileID: 537732645}
   m_Layer: 5
   m_Name: Speaker
   m_TagString: Untagged
@@ -523,6 +573,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &537732645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116967705598444051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4679496435437800706
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,12 +806,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The <color=yellow>grand gree</color>n <color=yellow>grapes</color> grew
-    <color=yellow>gracefully</color> in the garden.
+  m_text: The <color=#477016>gr</color>and <color=#477016>gr</color>een <color=#477016>gr</color>apes
+    <color=#477016>gr</color>ew <color=#477016>gr</color>acefully in the garden.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
-  m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 6715dbfe8e315c748915f27129625c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1023,7 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37647063, g: 0.7294118, b: 0.23529413, a: 1}
+  m_Color: {r: 0.3764706, g: 0.7294118, b: 0.23529412, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1100,7 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37647063, g: 0.7294118, b: 0.23529413, a: 1}
+  m_Color: {r: 0.3764706, g: 0.7294118, b: 0.23529412, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1398,7 +1462,6 @@ MonoBehaviour:
   textContainPanel: {fileID: 4679496435437800707}
   nextBtn: {fileID: 4679496436726088170}
   prevBtn: {fileID: 4679496436554057797}
-  activityAudioClip: {fileID: 8300000, guid: 3ee16de9a404c224cb2e550c0e920336, type: 3}
 --- !u!82 &8959154352133590507
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2045,12 +2108,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=yellow>Princ</color>e <color=yellow>Pratik</color> <color=yellow>prefers</color>
-    to <color=yellow>prune pricky</color> pear <color=yellow>trees</color>.
+  m_text: <color=#CE7776>Pr</color>ince <color=#CE7776>Pr</color>atik <color=#CE7776>pr</color>efers
+    to <color=#CE7776>pr</color>une <color=#CE7776>pr</color>icky pear <color=#002160>tr</color>ees.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
-  m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 6715dbfe8e315c748915f27129625c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2180,12 +2242,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: F<color=yellow>reddy, the frog</color> found four <color=yellow>fresh fruits</color>
-    to feast on.
+  m_text: <color=#C0B700>Fr</color>eddy, the <color=#C0B700>fr</color>og found four
+    <color=#C0B700>fr</color>esh <color=#C0B700>fr</color>uits to feast on.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
-  m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 6715dbfe8e315c748915f27129625c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2392,12 +2453,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=yellow>Trisha's tricky tricycle trembled</color> terribly on the
-    <color=yellow>track</color>.
+  m_text: <color=#002160>Tr</color>isha's <color=#002160>tr</color>icky <color=#002160>tr</color>icycle
+    <color=#002160>tr</color>embled terribly on the <color=#002160>tr</color>ack.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
-  m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 6715dbfe8e315c748915f27129625c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2527,12 +2587,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=yellow>Brind</color>a <color=yellow>br</color>aved the <color=yellow>brisk
-    breeze</color> with her <color=yellow>bright</color> blue umbrella.
+  m_text: <color=#BD0000>Br</color>inda <color=#BD0000>br</color>aved the <color=#BD0000>br</color>isk
+    <color=#BD0000>br</color>eeze with her <color=#BD0000>br</color>ight blue umbrella.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
-  m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 6715dbfe8e315c748915f27129625c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2737,12 +2796,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=yellow>Crazy crabs crawl</color> on the <color=yellow>crunchy</color>
-    sand.
+  m_text: <color=#FF0029>Cr</color>azy <color=#FF0029>cr</color>abs <color=#FF0029>cr</color>awl
+    on the <color=#FF0029>cr</color>unchy sand.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 373e0bfaf40d79641a5182e4513d67de, type: 2}
-  m_sharedMaterial: {fileID: 8610426517522080127, guid: 373e0bfaf40d79641a5182e4513d67de,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 6715dbfe8e315c748915f27129625c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2869,7 +2927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37647063, g: 0.7294118, b: 0.23529413, a: 1}
+  m_Color: {r: 0.3764706, g: 0.7294118, b: 0.23529412, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2897,6 +2955,7 @@ GameObject:
   - component: {fileID: 3077840122527825485}
   - component: {fileID: 8763161626627060436}
   - component: {fileID: 7467969277125296530}
+  - component: {fileID: 1712645751}
   m_Layer: 5
   m_Name: Speaker (1)
   m_TagString: Untagged
@@ -3016,6 +3075,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1712645751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552991077176464822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8004536427304982895
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,6 +3102,7 @@ GameObject:
   - component: {fileID: 8925191211436880747}
   - component: {fileID: 7364307759772384278}
   - component: {fileID: 6597807410986272656}
+  - component: {fileID: 15560412}
   m_Layer: 5
   m_Name: Speaker (3)
   m_TagString: Untagged
@@ -3147,3 +3222,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &15560412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004536427304982895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1

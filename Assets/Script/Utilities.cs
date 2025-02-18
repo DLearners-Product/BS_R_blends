@@ -27,12 +27,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         sequence.Play();
     }
 
-    public void ANIM_ScaleUpDelayScaleDown(Transform obj, float delayTime=0f)
+    public void ANIM_ScaleUpDelayScaleDown(Transform obj, float delayTime=0f, TweenCallback callback=null)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DOScale(Vector3.one * 1.25f, 0.5f));
         seq.AppendInterval(delayTime);
         seq.Append(obj.DOScale(Vector3.one, 0.5f));
+        seq.OnComplete(callback);
         seq.Play();
     }
 
@@ -157,12 +158,13 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.onComplete += callback;
     }
 
-    public void ANIM_RotateObjWithCallback(Transform obj, TweenCallback callback = null)
+    public void ANIM_RotateObjWithCallback(Transform obj, TweenCallback callback = null, TweenCallback callbackOnEnd = null)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.DORotate(new Vector3(0, 90, 0), 0.35f));
         seq.AppendCallback(callback);
         seq.Append(obj.DORotate(new Vector3(0, 0, 0), 0.35f));
+        seq.AppendCallback(callbackOnEnd);
         seq.Play();
     }
 
