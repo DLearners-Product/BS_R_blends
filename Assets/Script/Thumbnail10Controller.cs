@@ -39,7 +39,10 @@ public class Thumbnail10Controller : MonoBehaviour
         string dropSlotText = dropSlotObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
         dropSlotText = Regex.Replace(dropSlotText, "<.*?>", string.Empty); 
 
-        if(!droppedObjText.ToLower().Trim().Equals(dropSlotText.ToLower().Trim())) return;
+        if(!droppedObjText.ToLower().Trim().Equals(dropSlotText.ToLower().Trim())) {
+            AudioManager.PlayAudio(wrongOptionSFX);
+            return;
+        }
 
         attendedAnswer++;
         Destroy(dropedObj);
