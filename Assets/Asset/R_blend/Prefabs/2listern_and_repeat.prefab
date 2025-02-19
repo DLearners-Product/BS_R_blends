@@ -1146,6 +1146,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1e4f94199d2bca14d8ebf4446b35db74, type: 3}
   - {fileID: 8300000, guid: 5bc6bea513aba1047acea04abaec9cdd, type: 3}
   - {fileID: 8300000, guid: f43f849048b5a78479cdf62432416cd8, type: 3}
+  consonantActivityVO: {fileID: 8300000, guid: de9a968f22d3bb045b5c5537cf8a8b2e, type: 3}
+  consonantActivityChars:
+  - b
+  - r
+  - t
+  - g
+  - c
+  - r
+  - d
+  - f
+  - p
   rotateSpeed: 5
   minAngle: -40
   maxAngle: 40
@@ -1171,7 +1182,7 @@ MonoBehaviour:
   rainbowObject: {fileID: 7117424068071008446}
   normalMaterial: {fileID: 2100000, guid: ecd10b3cce893cd42bad2a7690294458, type: 2}
   glowMaterial: {fileID: 2100000, guid: 4f050e48c4b532d4bbfdd35b24be7164, type: 2}
-  fontChangeColor: {r: 0.8207547, g: 0.18970275, b: 0.18970275, a: 1}
+  wrongAudioClip: {fileID: 8300000, guid: 14d2019f0fe09d74587e4f6129a2ddd6, type: 3}
   activityCompleted: {fileID: 7753969993349801651}
   cardParent: {fileID: 7117424068007392754}
   cardPrefab: {fileID: 1951822455589646748, guid: 48a7ba1423d545c40803b57e1b95bd79,
