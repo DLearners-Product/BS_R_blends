@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 2162583256460292846}
   - component: {fileID: 2162583256460292847}
   m_Layer: 5
-  m_Name: 11goodbye_song
+  m_Name: 12goodbye_song
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   videoLoadingErrorPanel: {fileID: 6766524044836817131, guid: 7c1afd785e6e44b1cac383a50715afac,
     type: 3}
   spawnedLoader: {fileID: 0}
-  thumbnailTexture: {fileID: 0}
+  thumbnailTexture: {fileID: 2800000, guid: 4174e92087a2f534f9346a81fe09c858, type: 3}
   Cam: {fileID: 0}
   progress: {fileID: 2162583257930756154}
 --- !u!1 &2162583257072793180

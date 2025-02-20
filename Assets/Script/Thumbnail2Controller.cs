@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +11,8 @@ public class Thumbnail2Controller : MonoBehaviour
     public GameObject[] rainbowPoints;
     public GameObject[] clouds;
     public AudioClip[] alphabetClips;
+    public AudioClip consonantActivityVO;
+    public string[] consonantActivityChars;
     public float rotateSpeed = 0f;
     public float minAngle, maxAngle;
     public GameObject environmentObj;
@@ -20,13 +24,14 @@ public class Thumbnail2Controller : MonoBehaviour
     public GameObject rainbowObject;
     public Material normalMaterial,
                     glowMaterial;
-    public Color fontChangeColor;
     public GameObject activityCompleted;
     int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 10;
+    int consonantCounterIndex = -1;
     int counter = 0;
     int spawnPointIndex = 0;
     float mvoeStartTime = -1f;
     int selectedVowelsCount = 0;
+    bool playConsonant = false;
 
     [Header("Card Settings")]
     public GameObject cardParent;
@@ -74,8 +79,8 @@ public class Thumbnail2Controller : MonoBehaviour
 
     void InstantiateCloud()
     {
-        var instantiatedCloud = Instantiate(clouds[Random.Range(0, clouds.Length)].transform, cloudSpawnPoint);
-        int spawnPoint = Random.Range(cloudSpawnIndexMin, cloudSpawnIndexMax);
+        var instantiatedCloud = Instantiate(clouds[UnityEngine.Random.Range(0, clouds.Length)].transform, cloudSpawnPoint);
+        int spawnPoint = UnityEngine.Random.Range(cloudSpawnIndexMin, cloudSpawnIndexMax);
 
         Transform spawnPosition = (spawnPoints.Count != spawnPointIndex) ? spawnPoints[spawnPointIndex++] : cloudHorizontalStartPoints[spawnPoint];
 
@@ -196,6 +201,17 @@ public class Thumbnail2Controller : MonoBehaviour
 
         // ResetRainbowLetterMaterial();
 
+        if(playConsonant && consonantActivityChars[consonantCounterIndex].Equals(selectedLetter))
+        {
+            var waitTime = PlayAlphabetSound(consonantActivityChars[consonantCounterIndex++]);
+
+            if(consonantCounterIndex == consonantActivityChars.Length) { activityCompleted.SetActive(true); return; }
+
+            Invoke(nameof(StartConsonantActivity), waitTime + 1.5f);
+
+            return;
+        }
+
         foreach (var alphabet in rainbowPoints)
         {
             if(alphabet.GetComponent<TextMeshProUGUI>().text.ToLower().Equals(selectedLetter.ToLower()))
@@ -213,13 +229,15 @@ public class Thumbnail2Controller : MonoBehaviour
         PlayAlphabetSound(selectedLetter);
     }
 
-    void PlayAlphabetSound(string alphabetChar)
+    float PlayAlphabetSound(string alphabetChar)
     {
         foreach (var clip in alphabetClips)
         {
             Debug.Log(clip.name);
-            if(clip.name.Contains(alphabetChar)) { AudioManager.PlayAudio(clip); return; }
+            if(clip.name.Contains(alphabetChar)) { AudioManager.PlayAudio(clip); return clip.length; }
         }
+
+        return 0f;
     }
 
     public void OnCancelBTNClick()
@@ -243,14 +261,37 @@ public class Thumbnail2Controller : MonoBehaviour
             cardBG.SetActive(false); mainCardObject.SetAsFirstSibling();
             if(selectedVowelsCount == vowelsChar.Count)
             {
-                activityCompleted.SetActive(true);
+                consonantCounterIndex = 0;
+                playConsonant = true;
+                StartConsonantActivity();
             }
         });
+
         Utilities.Instance.ANIM_RotateAndReveal(mainCardObject, 
                             () => { 
                                 ChangeSprite(mainCardObject.GetChild(1).GetComponent<Image>(), rearCardSprite); 
                                 DisplayRearCard(mainCardObject);
                             });
+    }
+
+    void StartConsonantActivity()
+    {
+        AudioManager.PlayAudio(consonantActivityVO);
+        PlayConsonantVO();
+    }
+
+    private void PlayConsonantVO()
+    {
+        StartCoroutine(WaitAndCall(consonantActivityVO.length + 1f, () =>
+        {
+            PlayAlphabetSound(consonantActivityChars[consonantCounterIndex]);
+        }));
+    }
+
+    IEnumerator WaitAndCall(float waitTime, Action func)
+    {
+        yield return new WaitForSeconds(waitTime);
+        func();
     }
 
     void DisplayPicInMainCard(Sprite displaySprite)
@@ -297,13 +338,14 @@ public class Thumbnail2Controller : MonoBehaviour
         mainCardObject.GetChild(3).gameObject.SetActive(true);
 
         Utilities.Instance.ANIM_ShowBounceNormal(mainCardObject.GetChild(3));
-        Utilities.Instance.ANIM_MoveWithScaleUp(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.down * 1.5f));
+        Utilities.Instance.ANIM_MoveWithScaleUp(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.down * 1.5f), onCompleteCallBack: OnSpeakeBTNClick);
     }
 
     void GetSelectedVowelAssets(string selectedSTR)
     {
         for (int i = 0; i < _vowelSprites.Length; i++)
         {
+            Debug.Log($"-- {selectedSTR.ToLower()} :: {_vowelSprites[i].name.Substring(0, 1)}");
             if(_vowelSprites[i].name.Substring(0, 1).ToLower().Equals(selectedSTR.ToLower()))
             {
                 displaySprite = _vowelSprites[i];
