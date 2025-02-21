@@ -225,7 +225,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
     void MoveQuestion()
     {
-        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, () => { UpdateQuestionCounter(); EnableClicking(); AudioManager.PlayAudio(AC_answerClip[_currentIndex]); });
+        Utilities.Instance.ANIM_MoveWithScaleUp(_currentQuestion.transform, IMG_questionImagePanel.transform.position, onCompleteCallBack: () => { UpdateQuestionCounter(); EnableClicking(); AudioManager.PlayAudio(AC_answerClip[_currentIndex]); });
     }
 
     void MovePrevQuestion()

@@ -77,7 +77,7 @@ public class Thumbnail7Controller : MonoBehaviour
     void MoveObjectWithScalUp(Transform objectToMove, Transform movePoint)
     {
         if(prevSpawnedObject == null)
-            Utilities.Instance.ANIM_MoveWithScaleUp(objectToMove, movePoint.position, SpawnCounter);
+            Utilities.Instance.ANIM_MoveWithScaleUp(objectToMove, movePoint.position, onCompleteCallBack: SpawnCounter);
         else
             Utilities.Instance.ANIM_MoveWithScaleUp(objectToMove, movePoint.position);
         StartCoroutine(WaitAndCallFun(0.25f, ()=>{

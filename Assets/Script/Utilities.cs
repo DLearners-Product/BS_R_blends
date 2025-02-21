@@ -91,11 +91,11 @@ public class Utilities : MonoGenericSingleton<Utilities>
         _tween.Play();
     }
 
-    public void ANIM_MoveWithScaleUp(Transform obj, Vector3 endPos, TweenCallback onCompleteCallBack=null)
+    public void ANIM_MoveWithScaleUp(Transform obj, Vector3 endPos, float scaleSize = 1f, float effectSpeed = 0.5f, TweenCallback onCompleteCallBack=null)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(obj.DOMove(endPos, 0.5f));
-        sequence.Join(obj.DOScale(Vector3.one * 1, 0.5f));
+        sequence.Append(obj.DOMove(endPos, effectSpeed));
+        sequence.Join(obj.DOScale(Vector3.one * scaleSize, effectSpeed));
         sequence.onComplete += onCompleteCallBack;
         sequence.Play();
     }
