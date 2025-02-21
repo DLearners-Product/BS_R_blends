@@ -6,12 +6,14 @@ public class AudioManager : MonoBehaviour
 {
     Queue<AudioClip> queueClips;
     AudioSource audioSource;
+    float playVolume;
 
-    public static void PlayAudio(AudioClip audioClip)
+    public static void PlayAudio(AudioClip audioClip, float volume = 1f)
     {
         GameObject audioManager = new GameObject();
         audioManager.AddComponent<AudioSource>().clip = audioClip;
         audioManager.AddComponent<AudioManager>();
+        audioManager.GetComponent<AudioManager>().SetConfig(volume);
         audioManager.GetComponent<AudioManager>().PlayAssignedAudio();
     }
 
@@ -41,9 +43,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SetConfig(float volume = 1f)
+    {
+        playVolume = volume;
+    }
+
     public void PlayAssignedAudio()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = playVolume;
         gameObject.GetComponent<AudioSource>().Play();
         Invoke(nameof(DestroyObj), gameObject.GetComponent<AudioSource>().clip.length);
     }
