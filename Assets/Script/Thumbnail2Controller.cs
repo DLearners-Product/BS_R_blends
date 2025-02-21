@@ -11,6 +11,7 @@ public class Thumbnail2Controller : MonoBehaviour
     public GameObject[] rainbowPoints;
     public GameObject[] clouds;
     public AudioClip[] alphabetClips;
+    public AudioClip alphabetPopUpClip;
     public AudioClip consonantActivityVO;
     public string[] consonantActivityChars;
     public float rotateSpeed = 0f;
@@ -22,8 +23,12 @@ public class Thumbnail2Controller : MonoBehaviour
     public Transform cloudHorizontalEndPoint;
     public Transform cloudSpawnPoint;
     public GameObject rainbowObject;
+    public AudioClip rainbowShineSFX;
+    public Color changeColor;
     public Material normalMaterial,
                     glowMaterial;
+    public Image bgPanel;
+    public Button consonantActivityReplayBTN;
     public GameObject activityCompleted;
     int cloudSpawnIndexMin = 0, cloudSpawnIndexMax = 10;
     int consonantCounterIndex = -1;
@@ -32,6 +37,8 @@ public class Thumbnail2Controller : MonoBehaviour
     float mvoeStartTime = -1f;
     int selectedVowelsCount = 0;
     bool playConsonant = false;
+    bool inConsonantEffect = false;
+    Vector3 replayBTNOriginalPos;
 
     [Header("Card Settings")]
     public GameObject cardParent;
@@ -64,6 +71,15 @@ public class Thumbnail2Controller : MonoBehaviour
         InvokeRepeating(nameof(InstantiateCloud), 0f, 2f);
         Invoke(nameof(MoveEnvironment), 2f);
         cardBG.GetComponent<Image>().color = new Color(Color.white.r, Color.white.g, Color.white.b, 0);
+
+        // MoveHighlightSpeakerBTN();
+        // consonantCounterIndex = 0;
+        // playConsonant = true;
+
+        Utilities.Instance.ANIM_ShrinkObject(consonantActivityReplayBTN.transform, 0);
+        Utilities.Instance.ANIM_ImageFade(bgPanel, 0f, 0f);
+        replayBTNOriginalPos = consonantActivityReplayBTN.transform.position;
+
         ShrinkAlphabetObjects();
     }
 
@@ -107,7 +123,8 @@ public class Thumbnail2Controller : MonoBehaviour
     {
         var rainbowColor = rainbowObject.GetComponent<Image>().color;
         rainbowObject.SetActive(true);
-        Utilities.Instance.ANIM_ImageFill(rainbowObject.GetComponent<Image>(), 3f, PopAlphabetObjects);
+        AudioManager.PlayAudio(rainbowShineSFX);
+        Utilities.Instance.ANIM_ImageFill(rainbowObject.GetComponent<Image>(), rainbowShineSFX.length, PopAlphabetObjects);
         rainbowObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
@@ -123,6 +140,7 @@ public class Thumbnail2Controller : MonoBehaviour
     {
         // var alphabetIndex = counter;
         // if(counter < (rainbowPoints.Length - 1))
+        AudioManager.PlayAudio(alphabetPopUpClip, 0.5f);
         if(counter >= 1)
             Utilities.Instance.ScaleObject(rainbowPoints[counter--].transform, 1f, 0.1f, PopAlphabetObjects);
             // Utilities.Instance.ANIM_ShowBounceNormal(rainbowPoints[counter--].transform, 0.10f, 0.10f, PopAlphabetObjects);
@@ -194,61 +212,14 @@ public class Thumbnail2Controller : MonoBehaviour
     //     dragObj.transform.rotation = Quaternion.Slerp(dragObj.transform.rotation, targetRotation, rotateSpeed);
     // }
 
-    public void OnAlphabetsClicked()
-    {
-        var clickedObj = EventSystem.current.currentSelectedGameObject;
-        string selectedLetter = clickedObj.GetComponent<TextMeshProUGUI>().text;
-
-        // ResetRainbowLetterMaterial();
-
-        if(playConsonant && consonantActivityChars[consonantCounterIndex].Equals(selectedLetter))
-        {
-            var waitTime = PlayAlphabetSound(consonantActivityChars[consonantCounterIndex++]);
-
-            if(consonantCounterIndex == consonantActivityChars.Length) { activityCompleted.SetActive(true); return; }
-
-            Invoke(nameof(StartConsonantActivity), waitTime + 1.5f);
-
-            return;
-        }
-
-        foreach (var alphabet in rainbowPoints)
-        {
-            if(alphabet.GetComponent<TextMeshProUGUI>().text.ToLower().Equals(selectedLetter.ToLower()))
-            {
-                if(vowelsChar.Contains(selectedLetter.ToLower()))
-                {
-                    selectedVowelsCount++;
-                    GetSelectedVowelAssets(selectedLetter.ToLower());
-                    DisplayPicInMainCard(displaySprite);
-                    return;
-                }
-                // alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
-            }
-        }
-        PlayAlphabetSound(selectedLetter);
-    }
-
     float PlayAlphabetSound(string alphabetChar)
     {
         foreach (var clip in alphabetClips)
         {
-            Debug.Log(clip.name);
-            if(clip.name.Contains(alphabetChar)) { AudioManager.PlayAudio(clip); return clip.length; }
+            if(clip.name.ToLower().Contains(alphabetChar.ToLower())) { AudioManager.PlayAudio(clip); return clip.length; }
         }
 
         return 0f;
-    }
-
-    public void OnCancelBTNClick()
-    {
-        Utilities.Instance.ANIM_HideBounce(mainCardObject.GetChild(3));
-        Utilities.Instance.ANIM_MoveWithScaleDown(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.up * 1.5f), ReturnToOriginalState);
-    }
-
-    public void OnSpeakeBTNClick()
-    {
-        AudioManager.PlayAudio(currentVowelAudioClip);
     }
 
     void ReturnToOriginalState()
@@ -261,9 +232,11 @@ public class Thumbnail2Controller : MonoBehaviour
             cardBG.SetActive(false); mainCardObject.SetAsFirstSibling();
             if(selectedVowelsCount == vowelsChar.Count)
             {
-                consonantCounterIndex = 0;
-                playConsonant = true;
-                StartConsonantActivity();
+                Utilities.Instance.ANIM_ShowBounceNormal(consonantActivityReplayBTN.transform, callback: () => {
+                    MoveHighlightSpeakerBTN();
+                    consonantCounterIndex = 0;
+                    playConsonant = true;
+                });
             }
         });
 
@@ -274,29 +247,54 @@ public class Thumbnail2Controller : MonoBehaviour
                             });
     }
 
-    void StartConsonantActivity()
-    {
-        AudioManager.PlayAudio(consonantActivityVO);
-        PlayConsonantVO();
-    }
-
-    private void PlayConsonantVO()
-    {
-        StartCoroutine(WaitAndCall(consonantActivityVO.length + 1f, () =>
-        {
-            PlayAlphabetSound(consonantActivityChars[consonantCounterIndex]);
-        }));
-    }
-
     IEnumerator WaitAndCall(float waitTime, Action func)
     {
         yield return new WaitForSeconds(waitTime);
         func();
     }
 
+    void StartConsonantActivity()
+    {
+        AudioManager.PlayAudio(consonantActivityVO);
+        StartCoroutine(WaitAndCall(consonantActivityVO.length + 1f, () => {PlayConsonantVO(
+            () => {
+                Utilities.Instance.ANIM_MoveWithScaleUp(consonantActivityReplayBTN.transform, replayBTNOriginalPos);
+                Utilities.Instance.ANIM_ImageFade(bgPanel, 0f, callback : () => {
+                    bgPanel.gameObject.SetActive(false);
+                    consonantActivityReplayBTN.transform.SetSiblingIndex(1);
+                });
+            }
+            );
+        }));
+    }
+
+    void MoveHighlightSpeakerBTN()
+    {
+        // consonantCounterIndex = 0;
+        // playConsonant = true;
+        consonantActivityReplayBTN.transform.SetSiblingIndex(4);
+        Utilities.Instance.ANIM_MoveWithScaleUp(
+                consonantActivityReplayBTN.transform, 
+                Vector3.zero, 
+                scaleSize: 2.5f, 
+                effectSpeed: 3f, 
+                onCompleteCallBack: () => { StartConsonantActivity(); }
+        );
+        bgPanel.gameObject.SetActive(true);
+        Utilities.Instance.ANIM_ImageFade(bgPanel, 0.5f);
+    }
+
+    private void PlayConsonantVO(Action callback = null)
+    {
+        StartCoroutine(WaitAndCall(PlayAlphabetSound(
+            consonantActivityChars[consonantCounterIndex]) + 1f, 
+            () => {if(callback != null) callback();}
+        ));
+    }
+
     void DisplayPicInMainCard(Sprite displaySprite)
     {
-        mainCardObject.SetSiblingIndex(3);
+        mainCardObject.SetSiblingIndex(4);
         cardBG.SetActive(true);
         Debug.Log($"selected Sprite name :: {displaySprite.name}");
 
@@ -353,4 +351,61 @@ public class Thumbnail2Controller : MonoBehaviour
             }
         }
     }
+
+#region CLICK LISTENER
+    public void OnCancelBTNClick()
+    {
+        Utilities.Instance.ANIM_HideBounce(mainCardObject.GetChild(3));
+        Utilities.Instance.ANIM_MoveWithScaleDown(mainCardObject.GetChild(0), mainCardObject.GetChild(0).position + (Vector3.up * 1.5f), ReturnToOriginalState);
+    }
+
+    public void OnSpeakeBTNClick()
+    {
+        AudioManager.PlayAudio(currentVowelAudioClip);
+    }
+
+    public void OnConsonantSpeakerBTNClick()
+    {
+        // inConsonantEffect = false;
+        PlayConsonantVO();
+    }
+
+    public void OnAlphabetsClicked()
+    {
+        var clickedObj = EventSystem.current.currentSelectedGameObject;
+        string selectedLetter = clickedObj.GetComponent<TextMeshProUGUI>().text;
+
+        // ResetRainbowLetterMaterial();
+
+        if(playConsonant && consonantActivityChars[consonantCounterIndex].Equals(selectedLetter))
+        {
+            var waitTime = PlayAlphabetSound(consonantActivityChars[consonantCounterIndex++]);
+            clickedObj.GetComponent<TextMeshProUGUI>().color = changeColor;
+
+            if(consonantCounterIndex == consonantActivityChars.Length) { activityCompleted.SetActive(true); return; }
+
+            Invoke(nameof(MoveHighlightSpeakerBTN), waitTime + 1.5f);
+
+            return;
+        }
+
+        foreach (var alphabet in rainbowPoints)
+        {
+            if(alphabet.GetComponent<TextMeshProUGUI>().text.ToLower().Equals(selectedLetter.ToLower()))
+            {
+                if(vowelsChar.Contains(selectedLetter.ToLower()))
+                {
+                    selectedVowelsCount++;
+                    GetSelectedVowelAssets(selectedLetter.ToLower());
+                    DisplayPicInMainCard(displaySprite);
+                    return;
+                }
+                // alphabet.GetComponent<TextMeshProUGUI>().color = fontChangeColor;
+            }
+        }
+        PlayAlphabetSound(selectedLetter);
+    }
+
+
+#endregion
 }

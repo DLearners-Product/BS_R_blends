@@ -238,6 +238,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5851647045232845354, guid: 97b6a6eb912809a469f467872dfba0a5,
+        type: 3}
+      propertyPath: wordClips.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 42042229374549d4296044a61897068d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97b6a6eb912809a469f467872dfba0a5, type: 3}
 --- !u!224 &25160136 stripped
@@ -1485,6 +1490,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 56249657}
     m_Modifications:
+    - target: {fileID: 7117424066394388945, guid: 34928fe9f1dffe74b80507e0cf033337,
+        type: 3}
+      propertyPath: alphabetClips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 42042229374549d4296044a61897068d, type: 3}
     - target: {fileID: 7117424066394388950, guid: 34928fe9f1dffe74b80507e0cf033337,
         type: 3}
       propertyPath: m_LocalPosition.x
