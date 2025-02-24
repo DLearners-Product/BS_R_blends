@@ -171,7 +171,7 @@ public class phonological : MonoBehaviour
     {
         foreach (var audioClip in textAudioClips)
         {
-            if(audioClip.name.Contains(RemoveTag(displayText)))
+            if(audioClip.name.ToLower().Contains(RemoveTag(displayText).ToLower()))
             {
                 AudioManager.PlayAudio(audioClip);
                 break;
