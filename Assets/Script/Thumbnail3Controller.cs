@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
+using UnityEngine.EventSystems;
 
 public class Thumbnail3Controller : MonoBehaviour
 {
@@ -62,15 +63,6 @@ public class Thumbnail3Controller : MonoBehaviour
 
     string RemoveTag(string text) { return Regex.Replace(text, "<.*?>", string.Empty); }
 
-    public void OnRevealBTNClick()
-    {
-        playIndex = 0;
-        revealBTN.interactable = false;
-        Vector3 endPos = revealObject.transform.position + (Vector3.up * 10f);
-        revealObject.GetComponent<FloatingObject>().enabled = false;
-        PlayBlendWords();
-    }
-
     void PlayBlendWords()
     {
         if(playIndex == 0){
@@ -126,24 +118,12 @@ public class Thumbnail3Controller : MonoBehaviour
     {
         foreach (var clip in wordClips)
         {
-            if(clip.name.Contains(strText))
+            if(clip.name.ToLower().Contains(strText.ToLower()))
             {
                 return clip;
             }
         }
         return null;
-    }
-
-    public void OnNextBTNClick()
-    {
-        ChangeContent();
-        // SpawnContent();
-        nextBtn.interactable = false;
-    }
-
-    public void OnAnswerClick()
-    {
-        AudioManager.PlayAudio(_contentClips[currentContentIndex]);
     }
 
     void ChangeContent()
@@ -174,4 +154,36 @@ public class Thumbnail3Controller : MonoBehaviour
         Invoke(nameof(SpawnContent), 2f);
     }
 
+#region Button Listener
+
+    public void OnNextBTNClick()
+    {
+        ChangeContent();
+        // SpawnContent();
+        nextBtn.interactable = false;
+    }
+
+    public void OnAnswerClick()
+    {
+        AudioManager.PlayAudio(_contentClips[currentContentIndex]);
+    }
+
+    public void OnRevealBTNClick()
+    {
+        playIndex = 0;
+        revealBTN.interactable = false;
+        Vector3 endPos = revealObject.transform.position + (Vector3.up * 10f);
+        revealObject.GetComponent<FloatingObject>().enabled = false;
+        PlayBlendWords();
+    }
+
+    public void OnAstroidBTNClick()
+    {
+        var selectedObj = EventSystem.current.currentSelectedGameObject;
+        var selectedLetter = selectedObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        Debug.Log($"selectedLetter :: {selectedLetter}");
+        AudioManager.PlayAudio(GetWordAC(RemoveTag(selectedLetter)));
+    }
+
+#endregion
 }
