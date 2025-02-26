@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,12 +24,30 @@ public class Thumbnail7Controller : MonoBehaviour
     GameObject prevSpawnedObject;
     int currentIndex = 0;
 
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
+
     void Start()
     {
         currentIndex = 0;
         _spawnedObject = null;
         prevSpawnedObject = null;
         SpawnObject();
+#region DataSetter
+        // Main_Blended.OBJ_main_blended.levelno = 6;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        GetAdditionalData();
+#endregion
     }
 
     void SpawnCounter()
@@ -49,7 +68,12 @@ public class Thumbnail7Controller : MonoBehaviour
 
     void SpawnObject()
     {
-        if(currentIndex == activityTexts.Length) {activityCompletedScreen.SetActive(true); return;}
+        if(currentIndex == activityTexts.Length) {
+            BlendedOperations.instance.NotifyActivityCompleted();
+            activityCompletedScreen.SetActive(true); 
+            return;
+        }
+
         UpdateCounter();
 
         prevSpawnedObject = _spawnedObject;
@@ -107,9 +131,11 @@ public class Thumbnail7Controller : MonoBehaviour
             var clickedText = _text.textInfo.wordInfo[wordIndex].GetWord();
             if(clickedText.Trim() == answerTexts[currentIndex].Trim())
             {
+                _spawnedObject.transform.GetChild(0).GetChild(2).GetChild(2).gameObject.SetActive(true);
                 string[] textArr = _text.text.Split(' ');
                 textArr[wordIndex] = $"<color=green><b>{textArr[wordIndex]}</b></color>";
                 _spawnedObject.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<HighlightTextOnHover>().enabled = false;
+                ScoreManager.instance.RightAnswer(currentIndex, questionID: questions[currentIndex].id, answer: clickedText);
 
                 AssignTextValuesToSpawnedObj(string.Join(" ", textArr));
 
@@ -121,6 +147,7 @@ public class Thumbnail7Controller : MonoBehaviour
 
             }else{
                 AudioManager.PlayAudio(wrongAudioClip);
+                ScoreManager.instance.WrongAnswer(currentIndex, questionID: questions[currentIndex].id, answer: clickedText);
             }
         }
     }
@@ -130,4 +157,30 @@ public class Thumbnail7Controller : MonoBehaviour
         counterObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{currentIndex + 1} / {answerTexts.Length}";
     }
 
+#region QA
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text == selectedOption)
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
+    }
+#endregion
 }

@@ -52,7 +52,7 @@ public class Thumbnail6Controller : MonoBehaviour
 
         EnableTimeCounter();
 #region DataSetter
-        Main_Blended.OBJ_main_blended.levelno = 5;
+        // Main_Blended.OBJ_main_blended.levelno = 5;
         QAManager.instance.UpdateActivityQuestion();
         qIndex = 0;
         GetData(qIndex);
@@ -224,6 +224,7 @@ public class Thumbnail6Controller : MonoBehaviour
     void SpawnQuestion()
     {
         if(_currentIndex == SPR_questionSprite.Length){
+            BlendedOperations.instance.NotifyActivityCompleted();
             G_activityCompleted.SetActive(true);
             return;
         }

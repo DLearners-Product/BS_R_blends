@@ -2210,7 +2210,7 @@ RectTransform:
   - {fileID: 42575879}
   - {fileID: 1108996925}
   m_Father: {fileID: 2996115347935437161}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2472,15 +2472,526 @@ MonoBehaviour:
       additionalFields: []
     staticQAWithSQ:
       qaWithSubQuestion: []
-  - slideNo: 5
+  - slideNo: 6
     activityName: 
     hasSubquestion: 0
     questionType: 1
     staticQA:
-      questionType: 2
+      questionType: 1
       optionType: 1
+      questions:
+      - question:
+          text: My mom will grill burgers.
+          id: 21
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: grill
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: I saw a crab moving on the sand.
+          id: 22
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: crab
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: Elephants use their long trunks to lift food.
+          id: 23
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: trunks
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: Can you pour me a cold drink?
+          id: 24
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: drink
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: A tiny frog hopped onto a lily pad.
+          id: 25
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: frog
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: That big truck came down the highway.
+          id: 26
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: truck
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: This tall oak tree offers us shade.
+          id: 27
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: tree
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: The drummer's rhythmic beats energised the people.
+          id: 28
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: drummer's
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      options:
+      - text: crab
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: trunks
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: drink
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: drummer's
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: tree
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: grill
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: frog
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: truck
+        id: 0
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      additionalFields: []
+    dynamicQA:
+      questionType: 0
+      optionType: 0
       questions: []
-      options: []
+      additionalFields: []
+    staticQAWithSQ:
+      qaWithSubQuestion: []
+  - slideNo: 9
+    activityName: 
+    hasSubquestion: 0
+    questionType: 1
+    staticQA:
+      questionType: 1
+      optionType: 1
+      questions:
+      - question:
+          text: I am used to sweep the floor
+          id: 121
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: broom
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: I have a woody trunk and branches with leaves.
+          id: 122
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: tree
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: I jump and live in a pond or a river.
+          id: 123
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: frog
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: I am a juicy and healthy food item.
+          id: 124
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: fruit
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: I run on tracks and carry people.
+          id: 125
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: train
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      - question:
+          text: I have a handle and bristles and I am used for painting.
+          id: 126
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: brush
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      options:
+      - text: train
+        id: 21
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: frog
+        id: 22
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: broom
+        id: 23
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: brush
+        id: 24
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: tree
+        id: 25
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: fruit
+        id: 26
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      additionalFields: []
+    dynamicQA:
+      questionType: 0
+      optionType: 0
+      questions: []
+      additionalFields: []
+    staticQAWithSQ:
+      qaWithSubQuestion: []
+  - slideNo: 10
+    activityName: 
+    hasSubquestion: 0
+    questionType: 1
+    staticQA:
+      questionType: 1
+      optionType: 1
+      questions:
+      - question:
+          text: Brad was a lonely crab. He lived by himself in the sand and every
+            __( 1 )__ he would go out to __( 2 )__ the ocean water with his __( 3
+            )__, Fran. Fran was a __( 4 )__ blue __( 5 )__ who loved to play the
+            ___( 6 )___! Brad liked Fran's music and one night he even played the
+            __( 7 )__ with Fran! They played music all night long! After that fun
+            night, Brad was so tired. He stopped at a __( 8 )__ and ate some __(
+            9 )__ before ___( 10 )___ back home for bed!
+          id: 200
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        answers:
+        - text: 1. friday
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 2. drink
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 3. friend
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 4. crazy
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 5. crab
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 6. trumpet
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 7. drums
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 8. tree
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 9. fruits
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+        - text: 10. crawling
+          id: 0
+          _sprite: {fileID: 0}
+          texture2D: {fileID: 0}
+          audioClip: {fileID: 0}
+          image_url: 
+          audio_url: 
+      options:
+      - text: 9. fruits
+        id: 31
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 1. friday
+        id: 32
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 2. drink
+        id: 33
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 6. trumpet
+        id: 34
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 5. crab
+        id: 35
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 4. crazy
+        id: 36
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 8. tree
+        id: 37
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 7. drums
+        id: 38
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 10. crawling
+        id: 39
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
+      - text: 3. friend
+        id: 40
+        _sprite: {fileID: 0}
+        texture2D: {fileID: 0}
+        audioClip: {fileID: 0}
+        image_url: 
+        audio_url: 
       additionalFields: []
     dynamicQA:
       questionType: 0
@@ -2762,7 +3273,7 @@ RectTransform:
   m_Children:
   - {fileID: 1738699212}
   m_Father: {fileID: 2996115347935437161}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4382,131 +4893,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917187985}
   m_CullTransparentMesh: 0
---- !u!1001 &1935061763
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2996115347935437161}
-    m_Modifications:
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8591799984904745799, guid: 2da80feb4fb4c874d825e75593657b55,
-        type: 3}
-      propertyPath: m_Name
-      value: 6in_a_sentence
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2da80feb4fb4c874d825e75593657b55, type: 3}
---- !u!224 &1935061764 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8591799984904745798, guid: 2da80feb4fb4c874d825e75593657b55,
-    type: 3}
-  m_PrefabInstance: {fileID: 1935061763}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2012182926
 GameObject:
   m_ObjectHideFlags: 0
@@ -5668,7 +6054,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1935061764}
   - {fileID: 888843572}
   - {fileID: 1184312675}
   m_Father: {fileID: 2067067671}
