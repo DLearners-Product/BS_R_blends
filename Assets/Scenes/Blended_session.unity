@@ -934,7 +934,7 @@ MonoBehaviour:
     HAS_WORKSHEET: 0
     HAS_SYLLABLE: 0
     HAS_GRAMMER: 0
-    HAS_ACTIVITY: 0
+    HAS_ACTIVITY: 1
     IS_MANUAL_ACTIVITY: 0
   - name: 6in_a_sentence
     slideObject: {fileID: 824022387}
@@ -944,12 +944,12 @@ MonoBehaviour:
     slideName: 
     teacherInstruction: 
     activityInstruction: 
-    activityType: 0
+    activityType: 3
     HAS_VIDEO: 0
     HAS_WORKSHEET: 0
     HAS_SYLLABLE: 0
     HAS_GRAMMER: 0
-    HAS_ACTIVITY: 0
+    HAS_ACTIVITY: 1
     IS_MANUAL_ACTIVITY: 0
   - name: 7phonological_awareness
     slideObject: {fileID: 1174108110}
@@ -1028,7 +1028,7 @@ MonoBehaviour:
     HAS_WORKSHEET: 0
     HAS_SYLLABLE: 0
     HAS_GRAMMER: 0
-    HAS_ACTIVITY: 0
+    HAS_ACTIVITY: 1
     IS_MANUAL_ACTIVITY: 0
   - name: 10story_time
     slideObject: {fileID: 480580900}
@@ -1045,7 +1045,7 @@ MonoBehaviour:
     HAS_WORKSHEET: 0
     HAS_SYLLABLE: 0
     HAS_GRAMMER: 0
-    HAS_ACTIVITY: 0
+    HAS_ACTIVITY: 1
     IS_MANUAL_ACTIVITY: 0
   - name: 11word_song
     slideObject: {fileID: 2162583257674604006}
@@ -4781,7 +4781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1917187986
 RectTransform:
   m_ObjectHideFlags: 0
