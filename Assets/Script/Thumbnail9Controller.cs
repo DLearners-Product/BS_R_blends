@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,17 @@ public class Thumbnail9Controller : MonoBehaviour
     int index = 0;
     Color initialColor;
 
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
+
     void Start()
     {
         questionText.text = questionSTR[index];
@@ -27,6 +39,13 @@ public class Thumbnail9Controller : MonoBehaviour
         ShrinkOptionObjects();
         SpawnOptions();
         UpdateCounter();
+#region DataSetter
+        // Main_Blended.OBJ_main_blended.levelno = 9;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        GetAdditionalData();
+#endregion
     }
 
     void OnEnable() {
@@ -41,15 +60,18 @@ public class Thumbnail9Controller : MonoBehaviour
 
     void OnObjectDrop(GameObject dropObj, GameObject dropSlotObject)
     {
-        string selectedOptionSTR = dropObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-        if(answerSTR[index] == RemoveTag(selectedOptionSTR))
+        string selectedOptionSTR = RemoveTag(dropObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
+        if(answerSTR[index] == selectedOptionSTR)
         {
+            ScoreManager.instance.RightAnswer(qIndex, questionID: questions[qIndex].id, answerID: GetOptionID(selectedOptionSTR));
+            qIndex++;
             answerObject.GetComponent<Image>().color = Color.white;
             answerObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = selectedOptionSTR;
             Destroy(dropObj);
             AudioManager.PlayAudio(optionAudioClips[index]);
             Invoke(nameof(RightAnswer), optionAudioClips[index].length);
         }else{
+            ScoreManager.instance.WrongAnswer(qIndex, questionID: questions[qIndex].id, answerID: GetOptionID(selectedOptionSTR));
             AudioManager.PlayAudio(wrongAudioClip);
         }
     }
@@ -69,9 +91,11 @@ public class Thumbnail9Controller : MonoBehaviour
     {
         index++;
 
-        if(index == questionSTR.Length) { Debug.Log("came to if statement"); activityCompleted.SetActive(true); return; }
-
-        Debug.Log("In changeQuestion func....");
+        if(index == questionSTR.Length) {
+            BlendedOperations.instance.NotifyActivityCompleted();
+            activityCompleted.SetActive(true);
+            return;
+        }
 
         questionText.text = questionSTR[index];
         answerObject.GetComponent<Image>().color = initialColor;
@@ -123,4 +147,30 @@ public class Thumbnail9Controller : MonoBehaviour
         });
     }
 
+#region QA
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text == selectedOption)
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
+    }
+#endregion
 }

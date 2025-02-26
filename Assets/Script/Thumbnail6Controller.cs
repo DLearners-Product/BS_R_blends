@@ -32,6 +32,17 @@ public class Thumbnail6Controller : MonoBehaviour
     float counter = 1f;
     int displayCounter = 10;
 
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
+
     void Start()
     {
         OpenOptions();
@@ -40,6 +51,13 @@ public class Thumbnail6Controller : MonoBehaviour
         Invoke(nameof(SpawnQuestion), F_waitTime + 1.5f);
 
         EnableTimeCounter();
+#region DataSetter
+        // Main_Blended.OBJ_main_blended.levelno = 5;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        GetAdditionalData();
+#endregion
     }
 
     string RemoveTag(string text) { return Regex.Replace(text, "<.*?>", string.Empty); }
@@ -153,12 +171,17 @@ public class Thumbnail6Controller : MonoBehaviour
 
         if(EvaluateAnswer(selectedOptText))
         {
+            ScoreManager.instance.RightAnswer(qIndex, questionID: questions[qIndex].id, answerID: GetOptionID(selectedOptText));
+            qIndex++;
+
             selectedObj.tag = "answer";
             _currentSelectedOption = null;
             _currentIndex++;
             PlayOptionVO(selectedOptText);
             Invoke(nameof(SpawnQuestion), 3.5f);
         }else{
+            ScoreManager.instance.WrongAnswer(qIndex, questionID: questions[qIndex].id, answerID: GetOptionID(selectedOptText));
+
             PlayAudio(AC_wrongAudioClip);
             EnableClicking();
         }
@@ -201,6 +224,7 @@ public class Thumbnail6Controller : MonoBehaviour
     void SpawnQuestion()
     {
         if(_currentIndex == SPR_questionSprite.Length){
+            BlendedOperations.instance.NotifyActivityCompleted();
             G_activityCompleted.SetActive(true);
             return;
         }
@@ -234,4 +258,31 @@ public class Thumbnail6Controller : MonoBehaviour
 
         Utilities.Instance.ANIM_Move(_prevQuestion.transform, T_endPoint.position);
     }
+
+#region QA
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text == selectedOption)
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
+    }
+#endregion
 }

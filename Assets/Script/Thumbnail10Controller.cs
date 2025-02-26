@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -18,11 +19,29 @@ public class Thumbnail10Controller : MonoBehaviour
     public AudioClip passageAudioClip, wrongOptionSFX;
     int attendedAnswer;
 
+#region QA
+    private int qIndex;
+    public GameObject questionGO;
+    public GameObject[] optionsGO;
+    public bool isActivityCompleted = false;
+    public Dictionary<string, Component> additionalFields;
+    Component[] questions;
+    Component[] options;
+    Component[] answers;
+#endregion
+
     void Start()
     {
         attendedAnswer = 0;
         _questionPanelIntialPosition = questionPanel.transform;
         MoveQuestionBoardUp(7f);
+#region DataSetter
+        // Main_Blended.OBJ_main_blended.levelno = 10;
+        QAManager.instance.UpdateActivityQuestion();
+        qIndex = 0;
+        GetData(qIndex);
+        GetAdditionalData();
+#endregion
     }
 
     void OnEnable() {
@@ -40,10 +59,12 @@ public class Thumbnail10Controller : MonoBehaviour
         dropSlotText = Regex.Replace(dropSlotText, "<.*?>", string.Empty); 
 
         if(!droppedObjText.ToLower().Trim().Equals(dropSlotText.ToLower().Trim())) {
+            ScoreManager.instance.WrongAnswer(attendedAnswer, questionID: questions[qIndex].id, answerID: GetOptionID(droppedObjText.Trim()));
             AudioManager.PlayAudio(wrongOptionSFX);
             return;
         }
 
+        ScoreManager.instance.RightAnswer(attendedAnswer, questionID: questions[qIndex].id, answerID: GetOptionID(droppedObjText.Trim()));
         attendedAnswer++;
         Destroy(dropedObj);
         dropSlotObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -61,6 +82,7 @@ public class Thumbnail10Controller : MonoBehaviour
     }
 
     void EnableActivityCompleted() {
+        BlendedOperations.instance.NotifyActivityCompleted();
         activityCompleted.SetActive(true);
     }
 
@@ -102,4 +124,30 @@ public class Thumbnail10Controller : MonoBehaviour
         optionsParent.SetSiblingIndex(3);
     }
 
+#region QA
+    int GetOptionID(string selectedOption)
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            if (options[i].text.Contains(selectedOption))
+            {
+                return options[i].id;
+            }
+        }
+        return -1;
+    }
+
+    void GetData(int questionIndex)
+    {
+        // question = QAManager.instance.GetQuestionAt(0, questionIndex);
+        questions = QAManager.instance.GetAllQuestions(0);
+        options = QAManager.instance.GetOption(0, questionIndex);
+        answers = QAManager.instance.GetAnswer(0, questionIndex);
+    }
+
+    void GetAdditionalData()
+    {
+        additionalFields = QAManager.instance.GetAdditionalField(0);
+    }
+#endregion
 }
