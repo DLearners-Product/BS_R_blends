@@ -13,13 +13,14 @@ public class Thumbnail3Controller : MonoBehaviour
     public Image answerDisplayIMG;
     public TextMeshProUGUI answerDisplayText;
     public TextMeshProUGUI textObj2;
+    public Transform astroid1StancePos, astroid2StancePos, revealObjStancePos;
     public string[] contents;
     public Sprite[] rBlendedImages;
     public AudioClip[] _blendWordClips;
     public AudioClip[] _contentClips;
     public AudioClip[] wordClips;
     public GameObject revealObject;
-    public Button nextBtn, revealBTN;
+    public Button nextBtn, backBTN, revealBTN;
     public GameObject activityCompleted;
     int currentContentIndex = 0;
     int playIndex = 0;
@@ -35,8 +36,8 @@ public class Thumbnail3Controller : MonoBehaviour
 
     void SpawnContent()
     {
-        Vector3 astrd1EndPos = astroid1.transform.position + (Vector3.up * 10f);
-        Vector3 astrd2EndPos = astroid2.transform.position + (Vector3.up * 10f);
+        Vector3 astrd1EndPos = astroid1StancePos.position;
+        Vector3 astrd2EndPos = astroid2StancePos.position;
 
         Utilities.Instance.ANIM_Move(astroid1.transform, astrd1EndPos, callBack: () => {
             astroid1.GetComponent<FloatingObject>().enabled = true;
@@ -92,9 +93,9 @@ public class Thumbnail3Controller : MonoBehaviour
         astroid1.GetComponent<FloatingObject>().enabled = false;
         astroid2.GetComponent<FloatingObject>().enabled = false;
 
-        Utilities.Instance.ANIM_Move(astroid1.transform, astroid1.transform.position + (Vector3.right * 1.5f));
+        Utilities.Instance.ANIM_Move(astroid1.transform, astroid1StancePos.position + (Vector3.right * 1.25f));
 
-        Utilities.Instance.ANIM_Move(astroid2.transform, astroid2.transform.position + (Vector3.left * 1.5f), callBack: PlayBlendedClip);
+        Utilities.Instance.ANIM_Move(astroid2.transform, astroid2StancePos.position + (Vector3.left * 1.25f), callBack: PlayBlendedClip);
     }
 
     void PlayBlendedClip()
@@ -105,7 +106,7 @@ public class Thumbnail3Controller : MonoBehaviour
 
     void RevealAnswer()
     {
-        Vector3 endPos = revealObject.transform.position + (Vector3.up * 10f);
+        Vector3 endPos = revealObjStancePos.position;
 
         Utilities.Instance.ANIM_Move(revealObject.transform, endPos, callBack: () => {
             revealObject.GetComponent<FloatingObject>().enabled = true;
@@ -128,10 +129,8 @@ public class Thumbnail3Controller : MonoBehaviour
 
     void ChangeContent()
     {
-        currentContentIndex++;
-        
         if(currentContentIndex == contents.Length) { activityCompleted.SetActive(true); return; }
-        
+
         revealObject.GetComponent<FloatingObject>().enabled = false;
         Vector3 enPosition = revealObject.transform.position + (Vector3.down * 10f);
         Utilities.Instance.ANIM_Move(revealObject.transform, enPosition, callBack:MoveDownAstroids);
@@ -142,8 +141,8 @@ public class Thumbnail3Controller : MonoBehaviour
         astroid1.GetComponent<FloatingObject>().enabled = false;
         astroid2.GetComponent<FloatingObject>().enabled = false;
 
-        Vector3 astrd1EndPos = astroid1.transform.position + (Vector3.down * 10f) + (Vector3.left * 1.5f);
-        Vector3 astrd2EndPos = astroid2.transform.position + (Vector3.down * 10f) + (Vector3.right * 1.5f);
+        Vector3 astrd1EndPos = astroid1StancePos.position + (Vector3.down * 10f) + (Vector3.left * 1.5f);
+        Vector3 astrd2EndPos = astroid2StancePos.position + (Vector3.down * 10f) + (Vector3.right * 1.5f);
 
         Utilities.Instance.ANIM_Move(astroid1.transform, astrd1EndPos);
         Utilities.Instance.ANIM_Move(astroid2.transform, astrd2EndPos, callBack: () => {
@@ -156,8 +155,21 @@ public class Thumbnail3Controller : MonoBehaviour
 
 #region Button Listener
 
+    public void OnBackBTNClick()
+    {
+        currentContentIndex--;
+
+        if(currentContentIndex == 0) backBTN.interactable = false;
+
+        ChangeContent();
+    }
+
     public void OnNextBTNClick()
     {
+        currentContentIndex++;
+
+        if(currentContentIndex > 0) backBTN.interactable = true;
+
         ChangeContent();
         // SpawnContent();
         nextBtn.interactable = false;

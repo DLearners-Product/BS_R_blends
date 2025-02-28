@@ -9,7 +9,7 @@ public class Thumbnail5Controller : MonoBehaviour
     public TextMeshProUGUI blendWordTextPanel;
     public TextMeshProUGUI frame1Text, frame2Text;
     public Image frame1, frame2;
-    public Button nxtBtn;
+    public Button nxtBtn, backBtn;
     public GameObject activityCompleted;
     public string[] blendWords;
     public Sprite[] blendSprites;
@@ -21,6 +21,7 @@ public class Thumbnail5Controller : MonoBehaviour
     void Start()
     {
         ShowNextFrame();
+        backBtn.interactable = false;
         // Invoke(nameof(ShowNextFrame), 2f);
     }
 
@@ -53,7 +54,6 @@ public class Thumbnail5Controller : MonoBehaviour
         frame2.GetComponent<Image>().preserveAspect = true;
         frame2.GetComponent<AudioSource>().clip = blendImageVOs[(currentIndex * 2) + 1];
         frame2Text.text = GetColorCodedText((currentIndex * 2) + 1);
-        currentIndex++;
     }
 
     void ShowNextFrame()
@@ -80,13 +80,27 @@ public class Thumbnail5Controller : MonoBehaviour
         }
     }
 
+    public void OnBackBTNClick()
+    {
+        currentIndex--;
+
+        backBtn.interactable = (currentIndex != 0);
+
+        ShowNextFrame();
+    }
+
     public void OnNextBtnClick()
     {
+        currentIndex++;
+
+        if(currentIndex > 0) backBtn.interactable = true;
+
         if (currentIndex == blendWords.Length)
         {
             activityCompleted.SetActive(true);
             return;
         }
+
         ShowNextFrame();
     }
 }
