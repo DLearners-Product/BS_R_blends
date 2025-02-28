@@ -17,6 +17,7 @@ public class Thumbnail10Controller : MonoBehaviour
     public AudioClip[] optionClips;
     public Transform[] placementPositions;
     public AudioClip passageAudioClip, wrongOptionSFX;
+    public GameObject counterObj;
     int attendedAnswer;
 
 #region QA
@@ -35,6 +36,8 @@ public class Thumbnail10Controller : MonoBehaviour
         attendedAnswer = 0;
         _questionPanelIntialPosition = questionPanel.transform;
         MoveQuestionBoardUp(7f);
+        Utilities.Instance.ANIM_Move(counterObj.transform, counterObj.transform.position + (Vector3.up * 3), 0f);
+        UpdatedCounter();
 #region DataSetter
         // Main_Blended.OBJ_main_blended.levelno = 10;
         QAManager.instance.UpdateActivityQuestion();
@@ -65,8 +68,13 @@ public class Thumbnail10Controller : MonoBehaviour
         }
 
         ScoreManager.instance.RightAnswer(attendedAnswer, questionID: questions[qIndex].id, answerID: GetOptionID(droppedObjText.Trim()));
+
         attendedAnswer++;
+
+        UpdatedCounter();
+
         Destroy(dropedObj);
+
         dropSlotObject.transform.GetChild(0).gameObject.SetActive(true);
         Utilities.Instance.ANIM_CorrectScaleEffect(dropSlotObject.transform.GetChild(0));
         var optionClip = GetOptionClip(dropSlotText);
@@ -112,6 +120,7 @@ public class Thumbnail10Controller : MonoBehaviour
 
     void SpawnOptions()
     {
+        Utilities.Instance.ANIM_Move(counterObj.transform, counterObj.transform.position + (Vector3.down * 3));
         for (int i = 0; i < optionText.Length; i++)
         {
             var spawnedObj = Instantiate(optionObject, optionsParent);
@@ -122,6 +131,11 @@ public class Thumbnail10Controller : MonoBehaviour
             });
         }
         optionsParent.SetSiblingIndex(3);
+    }
+
+    void UpdatedCounter()
+    {
+        counterObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{attendedAnswer}/{optionText.Length}";
     }
 
 #region QA

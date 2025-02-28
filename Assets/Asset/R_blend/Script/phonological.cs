@@ -16,6 +16,7 @@ public class phonological : MonoBehaviour
     public TextMeshProUGUI optText1, optText2, optText3;
     public Transform position1, position2, position3;
     public AudioClip[] textAudioClips;
+    public Button backBTN;
     int currentIndex = 0;
     Transform[] _optionsObjs;
     string displayText;
@@ -35,6 +36,8 @@ public class phonological : MonoBehaviour
         displayObjs[2] = optText1.transform.parent.gameObject;
         displayObjs[3] = optText2.transform.parent.gameObject;
         displayObjs[4] = optText3.transform.parent.gameObject;
+
+        backBTN.interactable = (currentIndex != 0);
 
         SpawnQuestion();
     }
@@ -179,9 +182,17 @@ public class phonological : MonoBehaviour
         }
     }
 
+    public void OnBackBTNClick()
+    {
+        currentIndex--;
+        backBTN.interactable = (currentIndex != 0);
+        SpawnQuestion();
+    }
+
     public void OnNextBtnClick()
     {
         currentIndex++;
+        backBTN.interactable = (currentIndex != 0);
         if(blendWordsData.Length == currentIndex)
             G_Final.SetActive(true);
         else

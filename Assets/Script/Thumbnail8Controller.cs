@@ -28,6 +28,11 @@ public class Thumbnail8Controller : MonoBehaviour
         Utilities.Instance.ANIM_Move(textContainPanel, endPosition, callBack: () => { Enable2ndPanel(2); });
     }
 
+    public void PlaySentenceVO(AudioClip audioClip)
+    {
+        AudioManager.PlayAudio(audioClip);
+    }
+
     void Enable2ndPanel(int enableIndex)
     {
         if(enableIndex == 1)
